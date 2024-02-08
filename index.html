@@ -3,75 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ToDo</title>
+    <title>ToDo List</title>
     <script type="module" src="/src/main.ts" defer></script>
     <link rel="stylesheet" href="/src/style.css">
     <!-- <link rel="icon" href="/public/images/favicon.ico" type="image/x-icon"> -->
     <!-- <link rel="shortcut icon" href="/images/faviccon.ico" type="image/x-icon"> -->
   </head>
-  <body class="body-container">
-    <header class="header-container">
-<!--       <div class="dateTime">
-        <p class="time"></p>
-        <p class="date"></p>
-      </div> -->
+  <body class="body">
+    <header class="header">
+     <!--  <button class="add-todo-list-btn">Add a to-do list</button> -->
     </header>
     <div class="empty-container1"></div>
     <main class="main-container">
-        <h1 class="main-heading" contenteditable="true"></h1>
-        <section class="cards-container"> 
-          <article class="card">
-            <h3 class="card-heading">Snabblänkar</h3>
-            <button class="open-webLink-dialog-button button">Skapa ny webblänk</button>
-            <dialog class="webLink-dialog-outer">
-              <div class="webLink-dialog-inner">
-                <p>Kopiera websidans url och klistra in den här:</p>
-                <input class="webLink-url-input input" type="text" name="webLink-url-input" id="webLink-url-input" placeholder="tex https://google.com">          
-                <p>Skriv in det namn du vill ha för sidan:</p>
-                <input class="webLink-heading-input input" type="text" name="webLink-heading-input" id="webLink-heading-input" placeholder="tex Google-Sök"> 
-                <button class="add-new-webLink-button button">OK</button>
-                <button class="cancel-new-webLink-button button">Avbryt</button>
-              </div>
-            </dialog>
-            <div class="webLinks-container">
-              <!-- webLink items are inserted here-->
+  
+          <section class="todo-list" data-id="asdf12423423">
+
+            <div class="todo-list-header">
+              <h3 class="todo-list-heading">Att göra hemma</h3>
+              <button class="delete-todo-list">
+                  <img class="todo-list-icon" src="/public/icons/trash-svgrepo-com.svg" alt="This button deletes the to-do list">
+              </button>
             </div>
-          </article>
-          <article class="card">
-            <h3 class="card-heading">Väderprognoser</h3>
-            <button class="open-weather-dialog-button button">Byt ort</button>
-            <dialog class="weather-dialog-outer">
-              <div class="weather-dialog-inner">
-                <p>Ange stadens namn:</p>
-                <input class="weather-cityName-input input" type="text" name="weather-city-input" id="weather-city-input" placeholder="tex Göteborg">          
-                <p>Ange landskoden:</p>
-                <input class="weather-countryCode-input input" type="text" name="weather-countryCode-input" id="weather-countryCode-input" placeholder="tex SE för Sverige"> 
-                <button class="change-weather-location-button button">OK</button>
-                <button class="cancel-change-weather-location-button button">Avbryt</button>
-              </div>
-            </dialog>
-            <div class="weather-container">
-              <!-- weather items are inserted here-->
+
+            <div class="todo-list-main">
+              <!--  -->
+              <article class="todo-item" data-id="1223asasd">
+                <button class="toggle-status-of-todo-item-btn">
+                  <img class="toggle-status-of-todo-item-img" src="/public/icons/circle-svgrepo-com.svg" alt="Status of the to-do item">
+                </button>
+                <p class="todo-description-p" contenteditable="false">Städa vardagsrummet</p>
+                <div class="up-down-icons-div">
+                  <button class="move-up-todo-item-btn">
+                    <img class="todo-item-img" src="/public/icons/chevron-up-svgrepo-com.svg" alt="" >
+                  </button>
+                  <button class="move-down-todo-item-btn">
+                    <img class="todo-item-img" src="/public/icons/chevron-down-svgrepo-com.svg" alt="" >
+                  </button>
+                </div>
+                <div class="delete-edit-icons-div">
+                  <button class="delete-todo-item-btn">
+                    <img class="todo-item-img" src="/public/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
+                  </button>
+                  <button class="edit-todo-item-btn">
+                    <img class="todo-item-img" src="/public/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
+                  </button>
+                </div>
+              </article>
             </div>
-          </article>
-          <article class="card">
-            <h3 class="card-heading">Nyheter från BBC</h3>
-            <div class="news-container">
-              <!-- here the news items are inserted -->
-            </div>  
-          </article>
-          <article class="card">
-            <h3 class="card-heading">Mina anteckningar</h3>
-            <div class="note-card small-card">
-              <div class="note" contenteditable="true">my note kommer här </div>  
+
+            <div class="todolist-footer">
+              <button class="add-todo-item-btn">
+                <img class="add-todo-item-img" src="/public/icons/plus-svgrepo-com.svg" alt="">
+                Add to-do item
+              </button>
+              <button class="delete-all-todo-items-btn">
+                <img class="delete-all-todo-items-img" src="/public/icons/list-delete-svgrepo-com.svg" alt="This button deletes all to-do items of this to-do list" >
+              </button>
             </div>
-          </article>
-        </section> 
+          </section>
+    
     </main>
     <div class="empty-container2"></div>
-    <footer class="footer-container">
-      <input class="background-image-search-input input" type="text" name="background-search-input" id="background-search-input" placeholder="Skriv in ett sökord, tex night">     
-      <button class="change-background-image-button button">Byt bakgrundsbild</button>
+    <footer class="footer">
     </footer>
   </body>
 </html>
