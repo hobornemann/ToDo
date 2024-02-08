@@ -1,11 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo</title>
+    <script type="module" src="/src/main.ts" defer></script>
+    <link rel="stylesheet" href="/src/style.css">
+    <!-- <link rel="icon" href="/public/images/favicon.ico" type="image/x-icon"> -->
+    <!-- <link rel="shortcut icon" href="/images/faviccon.ico" type="image/x-icon"> -->
+  </head>
+  <body class="body-container">
+    <header class="header-container">
+<!--       <div class="dateTime">
+        <p class="time"></p>
+        <p class="date"></p>
+      </div> -->
+    </header>
+    <div class="empty-container1"></div>
+    <main class="main-container">
+        <h1 class="main-heading" contenteditable="true"></h1>
+        <section class="cards-container"> 
+          <article class="card">
+            <h3 class="card-heading">Snabblänkar</h3>
+            <button class="open-webLink-dialog-button button">Skapa ny webblänk</button>
+            <dialog class="webLink-dialog-outer">
+              <div class="webLink-dialog-inner">
+                <p>Kopiera websidans url och klistra in den här:</p>
+                <input class="webLink-url-input input" type="text" name="webLink-url-input" id="webLink-url-input" placeholder="tex https://google.com">          
+                <p>Skriv in det namn du vill ha för sidan:</p>
+                <input class="webLink-heading-input input" type="text" name="webLink-heading-input" id="webLink-heading-input" placeholder="tex Google-Sök"> 
+                <button class="add-new-webLink-button button">OK</button>
+                <button class="cancel-new-webLink-button button">Avbryt</button>
+              </div>
+            </dialog>
+            <div class="webLinks-container">
+              <!-- webLink items are inserted here-->
+            </div>
+          </article>
+          <article class="card">
+            <h3 class="card-heading">Väderprognoser</h3>
+            <button class="open-weather-dialog-button button">Byt ort</button>
+            <dialog class="weather-dialog-outer">
+              <div class="weather-dialog-inner">
+                <p>Ange stadens namn:</p>
+                <input class="weather-cityName-input input" type="text" name="weather-city-input" id="weather-city-input" placeholder="tex Göteborg">          
+                <p>Ange landskoden:</p>
+                <input class="weather-countryCode-input input" type="text" name="weather-countryCode-input" id="weather-countryCode-input" placeholder="tex SE för Sverige"> 
+                <button class="change-weather-location-button button">OK</button>
+                <button class="cancel-change-weather-location-button button">Avbryt</button>
+              </div>
+            </dialog>
+            <div class="weather-container">
+              <!-- weather items are inserted here-->
+            </div>
+          </article>
+          <article class="card">
+            <h3 class="card-heading">Nyheter från BBC</h3>
+            <div class="news-container">
+              <!-- here the news items are inserted -->
+            </div>  
+          </article>
+          <article class="card">
+            <h3 class="card-heading">Mina anteckningar</h3>
+            <div class="note-card small-card">
+              <div class="note" contenteditable="true">my note kommer här </div>  
+            </div>
+          </article>
+        </section> 
+    </main>
+    <div class="empty-container2"></div>
+    <footer class="footer-container">
+      <input class="background-image-search-input input" type="text" name="background-search-input" id="background-search-input" placeholder="Skriv in ett sökord, tex night">     
+      <button class="change-background-image-button button">Byt bakgrundsbild</button>
+    </footer>
+  </body>
 </html>
+
