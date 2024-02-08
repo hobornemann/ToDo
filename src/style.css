@@ -1,0 +1,377 @@
+:root{
+    --body-background-color: rgba(232, 240, 254, 1.0); 
+    --header-background-color: rgba(10, 42, 70, 85%); 
+    --main-background-color: rgba(232, 240, 254, 1.0); 
+    --footer-background-color: rgba(10, 42, 70, 85%); 
+
+    --todo-list-header-background-color: rgba(10, 42, 70, 85%); 
+    --todo-list-heading-color:  rgba(255, 255, 255, 1);
+    --todo-list-main-background-color: rgba(200, 200, 200, 0.6); 
+    --todo-list-footer-background-color: rgba(10, 42, 70, 85%); 
+    
+    --todo-item-background-color: rgb(255, 255, 255, 1);
+    --todo-item-font-color: rgba(10, 42, 70, 1);
+    
+    --button-background-color: rgba(255, 255, 255, 1);
+    --button-font-color: rgba(10, 42, 70, 85%); 
+    --button-hover-color:  rgba(200, 200, 200, 0.90);                                 
+    --button-active-color: rgb(150, 153, 155);                                 
+    --font-family-01: arial, Helvetica; 
+}
+
+/* ---------------------------------------------------------------- */
+/* MAJOR ELEMENTS */
+/* ---------------------------------------------------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.body-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family-01);
+    background-color: var(--body-background-color);
+} 
+
+
+.main-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 95vw;
+    flex-wrap: wrap;
+    gap: 4%;
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: clamp(200px, 60vh, 100vh);
+    width: clamp(250px, 20%, 24%);
+    flex-wrap: wrap;
+    background-color: var(--card-background-color);
+    border-width: 2px;
+    border-radius: 5px;
+    margin: min(1.5vw, 1.5vh) ; 
+    padding: min(1.5vw, 1.5vh);
+} 
+
+
+/* .todo-list-header{
+
+} */
+
+
+.todo-list-heading{
+    font-size: clamp(12px, 2.5vh, 18px); 
+    margin-bottom: 2vh;  
+} 
+
+
+
+.todo-item{
+    padding: 0.7vh 0.7vw;
+    width: 100%;
+    background-color: var(--item-background-color);
+    border-radius: 5px;
+    margin-top: 0.7vh;
+    margin-bottom: 0.7vh;
+}
+
+.button{
+    padding: 0.7vh 0.7vw;
+    border-radius: 4px;
+    border-width: 1px;
+    margin: 0.7vh 0vw;
+    font-size: clamp(10px, 2vh, 15px);
+    color: var(--color01);
+  }
+  
+  
+  
+  /* ---------------------------------------------------------------- */
+  /* DATE & TIME */
+  /* ---------------------------------------------------------------- */
+  
+  .dateTime{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--item-background-color);
+    border-radius: 1vh;
+    width: clamp(150px, 20%, 24%);
+    font-size: clamp(10px, 2vh, 15px);
+    height: 3vh;
+  }
+  
+  .time, .date{
+    margin: 0 4%;
+  }
+  
+  .time{
+    font-weight: 600;
+  }
+  
+  
+  /* ---------------------------------------------------------------- */
+  /* WEBLINKS */
+  /* ---------------------------------------------------------------- */
+  
+  .open-webLink-dialog-button, .open-weather-dialog-button{
+    width: 100%;
+    background-color: white;
+    padding: 0.7vh 0.7vw;
+    border-radius: 4px;
+    border-width: 1px;
+    margin: 0.7vh 0vw;
+    font-size: clamp(10px, 2vh, 15px);
+  }
+  
+  .webLinks-container, .weather-container{
+    width: 100%;
+  
+  }
+  
+  .webLink-card, .goto-webLink-url-button, .delete-webLink-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-width: 0.5px;
+    font-size: clamp(10px, 2vh, 15px);
+    position: relative;
+    padding: 0;
+    background-color: var(--item-background-color);
+    border: none;
+    text-decoration: none;
+  }
+  
+  .webLink-dialog-outer, .weather-dialog-outer{
+    background-color: lightgray;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2%;
+    position: relative;
+    margin-top: -20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+    font-size: clamp(10px, 2vh, 15px);
+    z-index: 10;
+    width: 100%;
+  }
+  
+  .webLink-dialog-inner, .weather-dialog-inner{
+    height: 30%;
+    width: 100%;
+    background-color: var(--card-background-color);
+    border-radius: 5px; 
+    padding: min(1.5vw, 1.5vh);
+  }
+  
+  .webLink-heading-input, .webLink-url-input{
+    margin-bottom: 2vh;
+  }
+  
+  .goto-webLink-url-button{
+    width: 93%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .webLink-favicon{
+    height: clamp(1vh, 4vh, 5vh);
+    width: clamp(1vh, 4vh, 5vh);
+  }
+  
+  .webLink-heading{
+    margin-left: 1vh;
+    font-weight: 600;
+  }
+  
+  .delete-webLink-button{
+    width: 7%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .input{
+    display: block;
+    width: 100%;
+  }
+  
+  .input::placeholder{
+    font-size: clamp(8px, 1.8vh, 13px);
+  }
+  
+  
+  
+  /* ---------------------------------------------------------------- */
+  /* WEATHER */
+  /* ---------------------------------------------------------------- */
+  
+  .weather-container{
+    width: 100%;
+    color: var(--color01);
+  }
+  
+  .weather-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: clamp(10px, 2vh, 15px);
+    border-width: 1px;
+    height: clamp(3vh, 6vh, 8vh);
+  }
+  
+  .weather-icon{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--button-hover-color);
+    justify-content: center;
+    border-radius: 5px;
+  }
+  
+  
+  .weather-day-temperature-comment{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .weather-day-heading{
+    margin-left: 1vh;
+    font-weight: 600;
+  }
+  
+  .weather-temperature-comment{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .weather-temperature{
+    margin-left: 1vh;
+    background-color: var(--weather-details-background-color);
+    border-radius: 1vh;
+  }
+  
+  .weather-comment{
+    margin-left: 1vh;
+    background-color: var(--weather-details-background-color);
+    border-radius: 1vh;
+  }
+  
+  
+  
+  /* ---------------------------------------------------------------- */
+  /* NEWS */
+  /* ---------------------------------------------------------------- */
+  
+  .news-container{
+    width: 100%;
+    height: clamp(160px, 50vh, 80vh);
+    overflow-y: scroll;
+  }
+  
+  .news-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: clamp(10px, 2vh, 13px);
+    text-decoration: none;
+    width: 98%;
+  }
+  
+  a{
+    color: var(--color01);
+  }
+  
+  .news-image-author-and-publication-date{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: clamp(2.5vh, 5vh, 7vh);
+    max-width: 100%; 
+    color: var(--color03);
+  }
+  
+  .news-image{
+    max-height: 100%;
+    border-radius: 5px;
+    object-fit: scale-down; 
+  }
+  
+  .news-author-and-publication-date{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  .news-author{
+    font-size: clamp(9px, 1.8vh, 13.5px);
+  }
+  
+  .news-publication-date{
+    font-size: clamp(8px, 1.6vh, 12px);
+  }
+  
+  .news-title-and-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 1vh;
+  }
+  
+  .news-title{
+    font-size: clamp(10px, 2vh, 15px);
+    font-weight: 700;
+  }
+  
+  .news-description{
+    background-color: var(--news-details-background-color);
+    font-size: clamp(9px, 1.8vh, 13.5px);
+    margin-top: 0.5vh;
+  }
+  
+  
+  /* ---------------------------------------------------------------- */
+  /* NOTE */
+  /* ---------------------------------------------------------------- */
+  
+  .note-card{
+    font-size: clamp(10px, 2vh, 15px);
+    height: clamp(160px, 51vh, 80vh);
+    margin-bottom: -2vh;
+  }
+  
+  .note{
+    height: 100%;
+    overflow-y: scroll;
+    color: var(--color01);
+  }
+  
+  .background-image-search-input{
+    width: 15vw;
+    min-width: 150px;
+    max-width: 300px;
+  }
+  
+
+
