@@ -18,35 +18,50 @@
           <section class="todo-list" data-id="asdf12423423">
 
             <div class="todo-list-header">
-              <h3 class="todo-list-heading">Att göra hemma</h3>
-              <button class="edit-todo-item-btn button">
-                <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
+              <h3 class="todo-list-heading" contenteditable="false">My ToDo List</h3>
+              <button class="edit-todo-list-heading-btn button">
+                <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" title="Change the name of the todo list" alt="edit-icon: Change the name of the todo list">
               </button>
+              <button class="info-about-todo-list-btn button">
+                <img class="todo-item-img icon" src="/icons/info-borderless-svgrepo-com.svg" title="Intro to the todo list" alt="info-icon: Intro to the todo list">
+              </button>
+              <div class="info-dialog">
+                <h4>Welcome to the ToDo list!</h4>
+                <br>
+                <li class="bold">ToDo List</li>
+                <li>Edit: Edit the title of the todo list by clicking the pencil icon next to it. </li>
+                <li>Info: Click the info-button to see this information.</li>
+                <li>Delete: Delete all todo items by clicking the trash can in the upper right hand corner.</li>
+                <br>
+                <li class="bold">ToDo Items</li>
+                <li>Click & drag: Change priority of your todos by clicking & dragging them.</li>
+                <li>Edit: Edit todo-text or title of todo list by clicking the pencil icon.</li>
+                <li>Check: When you have completed the todo and want to keep it further down in the todo list, click the check-icon.</li>
+                <li>Delete: Click the trash can of the todo item, if you want to delete the item.</li>                
+                <br>
+                <button class="close-info-dialog-btn button">&nbsp; Close &nbsp; </button>
+              </div>
+              <div class="info-dialog-overlay"></div>
               <button class="delete-all-todo-items-btn button">
-                <img class="delete-all-todo-items-img icon" src="/icons/list-delete-svgrepo-com.svg" alt="This button deletes all to-do items of this to-do list" >
-              </button>
-              <button class="delete-todo-list-btn button">
-                  <img class="todo-list-img icon" src="/icons/trash-svgrepo-com.svg" title="This button deletes the to-do list" alt="This button deletes the to-do list">
+                <img class="delete-all-todo-items-img icon" src="/icons/trash-svgrepo-com.svg" title="Deletes all items in the todo list" alt="delete-icon: Deletes all items in the todo list" >
               </button>
             </div>
 
             <div class="todo-list-main">
   
-    
-<!-- TODO: ondragstart-->
               <article class="todo-item" id="todo-item-1" draggable="true" data-id="1">
                 <button class="toggle-status-of-todo-item-btn button">
                   <img class="toggle-status-of-todo-item-img icon" src="/icons/double-right-svgrepo-com.svg" alt="Status of the to-do item">
                 </button>
                 <p class="todo-description-p" contenteditable="false">Städa 1</p>
                 <button class="edit-todo-item-btn button">
-                  <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
+                  <img class="todo-item-img icon"  src="/icons/pencil-svgrepo-com.svg" title="Edit description of the todo item" alt="edit-icon of the todo item">
                 </button>
                 <button class="check-todo-item-btn button">
-                  <img class="todo-item-img icon" src="/icons/check-svgrepo-com.svg" alt="check-icon of the todo-item">
+                  <img class="todo-item-img icon" src="/icons/check-svgrepo-com.svg" title="Change status of the todo item to 'DONE'" alt="check-icon of the todo item">
                 </button>
                 <button class="delete-todo-item-btn button">
-                  <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
+                  <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" title="Delete the todo item" alt="delete-icon of the todo item">
                 </button>     
               </article>
 

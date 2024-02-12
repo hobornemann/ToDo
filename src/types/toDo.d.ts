@@ -1,17 +1,14 @@
 
 // TYPE
-export type toDoList = {
-  name: string | null;
-  sortOrder: number;
+export type TodoList = {
+  title: string | null;
+  introduction: string | null;
   todoItems: todoItem[] | null;
   };
   
-export type toDoItem = {
+export type TodoItem = {
   id: string;
-  sortOrder: number;
   isDone: boolean;  
   description: string | null;
-  createdDateTime: Date | null;
-  deadlineDateTime?: Date | null;
 };
 
