@@ -19,45 +19,94 @@
 
             <div class="todo-list-header">
               <h3 class="todo-list-heading">Att göra hemma</h3>
+              <button class="edit-todo-item-btn button">
+                <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
+              </button>
+              <button class="delete-all-todo-items-btn button">
+                <img class="delete-all-todo-items-img icon" src="/icons/list-delete-svgrepo-com.svg" alt="This button deletes all to-do items of this to-do list" >
+              </button>
               <button class="delete-todo-list-btn button">
-                  <img class="todo-list-icon" src="/icons/trash-svgrepo-com.svg" alt="This button deletes the to-do list">
+                  <img class="todo-list-img icon" src="/icons/trash-svgrepo-com.svg" title="This button deletes the to-do list" alt="This button deletes the to-do list">
               </button>
             </div>
 
             <div class="todo-list-main">
-              <!--  -->
-              <article class="todo-item" data-id="1223asasd">
+  
+    
+<!-- TODO: ondragstart-->
+              <article class="todo-item" id="todo-item-1" draggable="true" data-id="1">
                 <button class="toggle-status-of-todo-item-btn button">
-                  <img class="toggle-status-of-todo-item-img" src="/icons/circle-svgrepo-com.svg" alt="Status of the to-do item">
+                  <img class="toggle-status-of-todo-item-img icon" src="/icons/double-right-svgrepo-com.svg" alt="Status of the to-do item">
                 </button>
-                <p class="todo-description-p" contenteditable="false">Städa vardagsrummet</p>
-                <div class="up-down-icons-div">
-                  <button class="move-up-todo-item-btn button">
-                    <img class="todo-item-img" src="/icons/chevron-up-svgrepo-com.svg" alt="" >
-                  </button>
-                  <button class="move-down-todo-item-btn button">
-                    <img class="todo-item-img" src="/icons/chevron-down-svgrepo-com.svg" alt="" >
-                  </button>
-                </div>
-                <div class="delete-edit-icons-div">
-                  <button class="delete-todo-item-btn button">
-                    <img class="todo-item-img" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
-                  </button>
-                  <button class="edit-todo-item-btn button">
-                    <img class="todo-item-img" src="/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
-                  </button>
-                </div>
+                <p class="todo-description-p" contenteditable="false">Städa 1</p>
+                <button class="edit-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
+                </button>
+                <button class="check-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/check-svgrepo-com.svg" alt="check-icon of the todo-item">
+                </button>
+                <button class="delete-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
+                </button>     
               </article>
+
+              <article class="todo-item" id="todo-item-2" draggable="true" data-id="2">
+                <button class="toggle-status-of-todo-item-btn button">
+                  <img class="toggle-status-of-todo-item-img icon" src="/icons/double-right-svgrepo-com.svg" alt="Status of the to-do item">
+                </button>
+                <p class="todo-description-p" contenteditable="false">Städa 2</p>
+                <button class="edit-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
+                </button>
+                <button class="check-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/check-svgrepo-com.svg" alt="check-icon of the todo-item">
+                </button>
+                <button class="delete-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
+                </button>     
+              </article>
+
+              <article class="todo-item" id="todo-item-3" draggable="true" data-id="3">
+                <button class="toggle-status-of-todo-item-btn button">
+                  <img class="toggle-status-of-todo-item-img icon" src="/icons/double-right-svgrepo-com.svg" alt="Status of the to-do item">
+                </button>
+                <p class="todo-description-p" contenteditable="false">Städa 3</p>
+                <button class="edit-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
+                </button>
+                <button class="check-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/check-svgrepo-com.svg" alt="check-icon of the todo-item">
+                </button>
+                <button class="delete-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
+                </button>     
+              </article>
+
+              <article class="todo-item" id="todo-item-4" draggable="true" data-id="4">
+                <button class="toggle-status-of-todo-item-btn button">
+                  <img class="toggle-status-of-todo-item-img icon" src="/icons/double-right-svgrepo-com.svg" alt="Status of the to-do item">
+                </button>
+                <p class="todo-description-p" contenteditable="false">Städa 4</p>
+                <button class="edit-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" alt="edit-icon of the todo-item">
+                </button>
+                <button class="check-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/check-svgrepo-com.svg" alt="check-icon of the todo-item">
+                </button>
+                <button class="delete-todo-item-btn button">
+                  <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
+                </button>     
+              </article>
+              
             </div>
 
-            <div class="todolist-footer">
+            <div class="todo-list-footer">
+              <input type="text" class="add-todo-item-input" placeholder="Write a new todo here...">
               <button class="add-todo-item-btn button">
-                <img class="add-todo-item-img" src="/icons/plus-svgrepo-com.svg" alt="">
-                Add to-do item
+                <!-- <img class="add-todo-item-img icon" src="/icons/plus-svgrepo-com.svg" alt=""> -->
+                Add
               </button>
-              <button class="delete-all-todo-items-btn button">
-                <img class="delete-all-todo-items-img" src="/icons/list-delete-svgrepo-com.svg" alt="This button deletes all to-do items of this to-do list" >
-              </button>
+              
             </div>
           </section>
     
