@@ -105,6 +105,10 @@ h3{
   border: 1px solid #ccc;
 }
 
+.hidden{
+  display: none;
+}
+
 .button{
   display: flex;
   height:  clamp(16px, 2.6vh, 30px);
@@ -115,18 +119,20 @@ h3{
   align-items: center;
 }
 
-.toggle-status-of-todo-item-btn{
-  border-color: red;
+.status-of-todo-item-btn{
+  background-color: var(--todo-item-background-color);
+  background-image: url("/icons/circle-svgrepo-com.svg");
+/*   background-size: cover; */
+  border: none;
+  cursor: pointer;
 }
 
-/* .button{
-    padding: 0.7vh 0.7vw;
-    border-radius: 4px;
-    border-width: 1px;
-    margin: 0.7vh 0vw;
-    font-size: clamp(10px, 2vh, 15px);
-    color: var(--color01);
-  } */
+.status-of-todo-item-btn.checked{
+  background-color: var(--todo-item-background-color);
+  background-image: url("/icons/check-mark-button-svgrepo-com.svg");
+  border: none;
+}
+
   
 
 .delete-todo-list-btn{
