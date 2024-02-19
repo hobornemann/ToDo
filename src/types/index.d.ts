@@ -1,1 +1,1 @@
-/// <reference types="./toDo" />
+/// <reference types="./todo" />
