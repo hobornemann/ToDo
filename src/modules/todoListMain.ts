@@ -1,96 +1,231 @@
 //============================================================
-// TODO-LIST MAIN 
+// TODO-LIST-MAIN 
 //============================================================
 
-import {TodoItem} from '../types/todo'
+import {TodoItem, TodoList} from '../types/todo'
 import { v4 as uuidv4 } from 'uuid';
+import {updateTodoListInLocalStorage, getTodoListFromLocalStorage} from './todoList'
+
+//-----------------------------------------
+// INITIALISE - FROM LOCAL STORAGE
+//-----------------------------------------
+
+export function renderTodoListMainElement(todoList: TodoList, todoListMainElement: HTMLUListElement):void {
+    try{
+        if(todoList.todoItems && todoListMainElement){
+            let html: string = "";
+            todoList.todoItems.forEach(todoItem => {
+                html += createHtmlForNewTodoItemElement(todoItem)  
+            })
+            todoListMainElement.innerHTML = html;
+        } else {
+            const errorMessage = "Either todoList.todoItems or todoListMainElement is null.";
+            console.error(errorMessage);
+            throw new Error(errorMessage);
+        }
+    }
+    catch(error){
+        console.error("Error: ", error);
+        throw error; 
+    }
+};
 
 
-// Create, get, update, delete, add todoItem 
+function createHtmlForNewTodoItemElement(todoItem: TodoItem): string{
+    try{
+        if(todoItem){
+            let emptyCircle: string;
+            let checkMark: string;
+            if(todoItem.isDone){
+                emptyCircle = "hidden"; 
+                checkMark = ""; 
+            } else {
+                emptyCircle = "";
+                checkMark = "hidden";
+            }
+            let html = `
+                <li class="todo-item" id="${todoItem.id}" draggable="true">
+                    <button class="status-of-todo-item-btn button"
+                        <img class="status-todo-of-todo-item-img icon ${emptyCircle}" src="/icons/circle-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
+                        <img class="status-done-of-todo-item-img icon ${checkMark}" src="/icons/check-mark-button-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
+                    </button>
+                    <p class="todo-item-description-p" contenteditable="false">${todoItem.description}</p>
+                    <button class="edit-todo-item-btn button">
+                        <img class="todo-item-img icon"  src="/icons/pencil-svgrepo-com.svg" title="Edit description of the todo item" alt="edit-icon of the todo item">
+                    </button>
+                    <button class="check-todo-item-btn button">
+                        <img class="todo-item-img icon" src="/icons/check-svgrepo-com.svg" title="Change status of the todo item to 'DONE'" alt="check-icon of the todo item">
+                    </button>
+                    <button class="delete-todo-item-btn button">
+                        <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" title="Delete the todo item" alt="delete-icon of the todo item">
+                    </button>
+                </li>  
+            `; 
+            return html;
+        } else {
+            const errorMessage = "The input parameter todoItem is null.";
+            console.error(errorMessage);
+            throw new Error(errorMessage);
+        }
+    }   
+    catch(error){
+        console.error("Error:", error);
+        throw error; 
+    }
+};
 
-export function createTodoItem(): TodoItem {
-    const isDone: boolean = false;
-    const description = "";
-    const sortOrder: number | null = 0;
+
+
+
+
+export function addEventListenersToTodoListMainElement(todoListElement: HTMLElement): void {
+    try {
+        const todoListMainElement: HTMLElement | null = todoListElement.querySelector(".todo-list-main");
+        if (todoListMainElement) {
+            addEventListenerToStatusButtonInTodoListMainElement(todoListMainElement);
+            addEventListenerToEditButtonInTodoListMainElement(todoListMainElement);
+            addEventListenerToCheckButtonInTodoListMainElement(todoListMainElement);
+            addEventListenerToDeleteButtonInTodoListMainElement(todoListMainElement);
+        } else {
+            const errorMessage = "The HTML element '.todo-list-main' cannot be found.";
+            console.error(errorMessage);
+            throw new Error(errorMessage);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        throw error; 
+    }
+};
+
+
+//----------------------------------------------------------------
+// INITIALISE - NEW TODO-ITEM  (render, add eventlisteners etc) 
+//----------------------------------------------------------------
+
+export function initialiseNewTodoItemAndElement(todoList: TodoList, todoListElement: HTMLUListElement, description: string){
+    // object
+    const todoItem: TodoItem = createTodoItem(description);
+    addNewTodoItemToStartOfTodoList(todoItem, todoList);
+    // storage
+    updateTodoListInLocalStorage(todoList);
+    // HTML-DOM
+
+// TODO:
+    
+    const html = createHtmlForNewTodoItemElement(todoItem, todoListElement);
+    /*  const todoItemElement: HTMLLIElement */
+    addTodoItemElementToStartOfTodoListElement(todoItemElement, todoListElement);
+    /* updateSortNumberOfAllTodoItemsAndElements */
+
+};
+
+
+function addNewTodoItemToStartOfTodoList(todoItem: TodoItem, todoList: TodoList){
+    try{
+        if(todoItem && todoList.todoItems){
+            todoList.todoItems.unshift(todoItem);
+        }
+    }
+    catch(error){
+        console.error("Error: ", error);
+        throw error; 
+    }
+}
+
+
+function addTodoItemElementToStartOfTodoListElement(todoItemElement: HTMLLIElement, todoListElement: HTMLUListElement){
+    try{
+        todoListElement.prepend(todoItemElement)
+    }
+    catch(error){
+        const errorMsg = "Error: Either todoItemLiElement or todoListUlElement is null."
+        console.error(errorMsg, error);
+        throw new Error(errorMsg)
+    }
+};
+
+
+
+//-----------------------------------------
+// ADD EVENT-LISTENERS - BUTTONS  
+//-----------------------------------------
+
+function addEventListenerToStatusButtonInTodoListMainElement(todoListMainElement: HTMLElement){
+//TODO:
+};
+
+function addEventListenerToEditButtonInTodoListMainElement(todoListMainElement: HTMLElement){
+//TODO:
+};
+
+function addEventListenerToCheckButtonInTodoListMainElement(todoListMainElement: HTMLElement){
+//TODO:
+};
+
+function addEventListenerToDeleteButtonInTodoListMainElement(todoListMainElement: HTMLElement){
+//TODO:
+};
+
+
+//-----------------------------------------
+// ADD EVENT-LISTENER - DRAG & DROP  
+//-----------------------------------------
+
+
+
+
+//----------------------------------------------------
+// TS-OBJECT - CREATE, GET(READ), UPDATE, DELETE, ADD  
+//----------------------------------------------------
+
+
+export function createTodoItem(description: string = ''): TodoItem {
     const todoItem: TodoItem = {
         id: uuidv4(),
-        isDone: isDone,
+        isDone: false,
         description: description,
-        sortOrder: sortOrder,
     };
     return todoItem;
 }
 
 export function getTodoItemById(id: string): TodoItem | undefined {
-    const todoList = getTodoList();
-    const todoItem = 
-
-
-    return todoItem
+ //TODO:
 }
-function updateTodoItemById(id: string): void {
 
+function updateTodoItemById(id: string): void {
+//TODO:
 }
 
 function deleteTodoItemById(id: string): void {
-
+//TODO:
 };
 
 function deleteAllTodoItemsOfTodoList(){
-
+//TODO:
 };
 
 function addTodoItemToTodoList(todoItem: TodoItem){
-
+//TODO:
 };
 
 
-export function renderTodoItems(todoItems:TodoItem[]):void{
+
+//-------------------------------------------------------------
+// HTML/DOM ELEMENT - CREATE, GET (READ), UPDATE, DELETE, ADD 
+//-------------------------------------------------------------
+
+// TODO:
+export function initialiseTodoItems(todoItems:TodoItem[]):void{
 
     todoItems.forEach(todoItem => {
-        const todoItemElement = renderHtmlForTheTodoItem(todoItem);
+        const todoItemElement = createTodoItemElement(todoItem);
         addEventListenerToEveryButtonOnTheTodoItem(todoItemElement);
-        addDragAndDropEventListenerToTheTodoItem();
     });
+    addDragAndDropEventListenerToTodoListMain();
 };
 
 
-export function renderHtmlForTheTodoItem(todoItem: TodoItem){
-    
-    const todoListMain = document.querySelector('.todo-list-main');
-    const todoItemElement = document.createElement('article');
-    todoItemElement.classList.add('todo-item');
-    todoItemElement.id = todoItem.id;
-    todoItemElement.setAttribute('draggable', 'true');
-    let emptyCircle: string;
-    let checkMark: string;
-    if(todoItem.isDone){
-        emptyCircle = "hidden"; 
-        checkMark = ""; 
-    } else {
-        emptyCircle = "";
-        checkMark = "hidden";
-    }
 
-    todoItemElement.innerHTML = `
-        <button class="status-of-todo-item-btn button"
-            <img class="status-todo-of-todo-item-img icon ${emptyCircle}" src="/icons/circle-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
-            <img class="status-done-of-todo-item-img icon ${checkMark}" src="/icons/check-mark-button-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
-        </button>
-        <p class="todo-item-description-p" contenteditable="false">${todoItem.description}</p>
-        <button class="edit-todo-item-btn button">
-            <img class="todo-item-img icon"  src="/icons/pencil-svgrepo-com.svg" title="Edit description of the todo item" alt="edit-icon of the todo item">
-        </button>
-        <button class="check-todo-item-btn button">
-            <img class="todo-item-img icon" src="/icons/check-svgrepo-com.svg" title="Change status of the todo item to 'DONE'" alt="check-icon of the todo item">
-        </button>
-        <button class="delete-todo-item-btn button">
-            <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" title="Delete the todo item" alt="delete-icon of the todo item">
-        </button>
-    `;
-    todoListMain?.appendChild(todoItemElement);
-    return todoItemElement;
-};
 
 
 function addEventListenerToEveryButtonOnTheTodoItem(todoItemElement: HTMLElement){
@@ -165,59 +300,16 @@ function addEventListenerToEveryButtonOnTheTodoItem(todoItemElement: HTMLElement
     });
 };
 
-function addDragAndDropEventListenerToTheTodoItem(){
-    
-};
 
-
-/* function addEventListenerToEveryButtonOnEachTodoItem(){
-
-    const buttonGroups = [
-        { buttons: document.querySelectorAll<HTMLButtonElement>(".edit-todo-item-btn"), action: "Edit" },
-        { buttons: document.querySelectorAll<HTMLButtonElement>(".check-todo-item-btn"), action: "Check" },
-        { buttons: document.querySelectorAll<HTMLButtonElement>(".delete-todo-item-btn"), action: "Delete" }
-   ];
-    
-    buttonGroups.forEach(group => {
-        group.buttons.forEach((button: HTMLButtonElement) => {
-            button.addEventListener("click", (event: MouseEvent) => {
-                try {
-                    const targetElement = event.target as HTMLElement;
-                    const todoItem: HTMLElement | null = targetElement.closest(".todo-item");
-                    if (todoItem) {
-                        console.log(`${group.action} operation for todo item:`, todoItem);
-                        
-                        if(group.action === "Edit"){
-                            //TODO:
-                        } else if(group.action === "Check"){
-                            //TODO:
-                        } else if(group.action === "Delete"){
-                            //TODO:        
-                        }
-
-                    } else {
-                        throw new Error("Parent todo-item not found.");
-                    }
-                } catch (error) {
-                console.error("An error occurred:", error);
-                }
-            });
-        });
-    });
-}; */
-    
 
 
 
 //------------------------------------------------------------
-// DRAG & DROP
+// ADD EVENT-LISTENER - DRAG & DROP
 //------------------------------------------------------------
 
-
-// DRAG & DROP - EVENT-LISTENERS
-
-export function addDragAndDropEventListenerToTodoListMain(){
-    const todoListMain: HTMLElement | null = document.querySelector(".todo-list-main");
+export function addDragAndDropEventListenerToTodoListMainElement(){
+    const todoListMain: HTMLUListElement | null = document.querySelector(".todo-list-main");
     console.log("todoListMain",todoListMain)
     try {
         if (todoListMain) {
@@ -234,7 +326,9 @@ export function addDragAndDropEventListenerToTodoListMain(){
 };
 
 
+//------------------------------------------------------------
 // DRAG & DROP - FUNCTIONS: DRAG-START, DRAG-OVER, DRAG-DROP
+//------------------------------------------------------------
 
 function handleDragStart(event: DragEvent) {
     try {
