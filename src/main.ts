@@ -1,15 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TodoItem, TodoList } from './types/todo';
-import { renderTodoItems } from './modules/todo-item.ts';
-import { renderTodoListExclTodoItems } from './modules/todo-list.ts';
-import { getAllTodoItemsFromLocalStorage } from './modules/localStorage.ts';
-
+import { renderTodoItems } from './modules/todoListMain.ts';
+import { getTodoList, renderTodoListExclTodoItems } from './modules/todoListHeader.ts';
+import { getTodoItemsFromLocalStorage } from './modules/localStorage.ts';
+import { introductionHtml} from './modules/localStorage.ts';
+import {addDragAndDropEventListenerToTodoListMain} from './modules/drag-and-drop.ts'
 
 // Generate a UUID
 const myUUID: string = uuidv4();
 console.log(myUUID);
 
-let todoItemId = 1;  //TODO:
 
 
 
@@ -18,21 +18,51 @@ let todoItemId = 1;  //TODO:
 //------------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-    
-    
-    renderTodoListExclTodoItems();
-    const allTodoItems: TodoList = getAllTodoItemsFromLocalStorage();
-    
-    renderTodoItems(allTodoItems);
-    addDragAndDropEventListenersToEachTodoItem();
-
+    try{initialiseTodoList();}
+    catch(error){console.log("Error: ", error);}
 });
 
 
+function initialiseTodoList(){
 
-function getTodoListFromLocalStorage(): void {
-
+    const todoList: TodoList | undefined = getTodoList();
+        if(todoList){
+            initialiseTodoListHeader();
+            initialiseTodoListMain();
+            initialiseTodoListFooter();    
+        } else {
+          console.log("getTodoList() results in undefined");
+        }
+   
+    // initialiseTodoListHeader
+        // renderHtmlForTodoListHeader
+        // addEventListenersToButtonsInTodoListHeader
+    // initialiseTodoListMain
+        // renderHtmlForTodoListMain
+    // 
 }
+
+function initialiseTodoListHeader(todoList: TodoList):void{
+    renderHtmlForTodoListHeader(todoList);
+    addEventListenersToButtonsOfTodoListHeader(todoList)
+};
+
+function initialiseTodoListMain(todoList: TodoList):void{
+    renderHtmlForTodoListMain(todoList);
+    addEventListenersToButtonsOfTodoListMain(todoList);
+    addEventListenerForDragAndDropOnTodoListMain(todoList);
+};
+
+function initialiseTodoListFooter(todoList: TodoList):void{
+    renderHtmlForTodoListFooter(todoList);
+    addEventListenersToButtonsOfTodoListFooter(todoList);
+};
+
+/* renderTodoListExclTodoItems();
+renderTodoItems(allTodoItems);
+addDragAndDropEventListenersToEachTodoItem();
+ */
+
 
 
 const addTodoItemBtn: HTMLButtonElement = document.querySelector(".add-todo-item-btn") as HTMLButtonElement;

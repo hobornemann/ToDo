@@ -1,7 +1,54 @@
-//------------------------------------------------------------
-// TODO LIST (excl todo item)
-//------------------------------------------------------------
+//============================================================
+// TODO-LIST HEADER 
+//============================================================
 
+
+import { TodoItem, TodoList } from "../types/todo";
+import { v4 as uuidv4 } from 'uuid';
+import { introductionHtml } from "./localStorage";}
+
+
+// CREATE, GET, UPDATE, DELETE, ADD 
+
+export function createTodoList(): TodoList{
+    const title = "";
+    const todoItems: TodoItem[] = [];
+    const todoList: TodoList = {
+        id: uuidv4(),
+        title: title,
+        introductionHtml: introductionHtml,
+        todoItems: todoItems,
+    }
+    return todoList
+};
+
+export function getTodoList(): TodoList | undefined {
+    try{
+        let todoList: TodoList;
+        const todoListJson = localStorage.getItem('todoList');
+        if(todoListJson){
+            todoList = JSON.parse(todoListJson)
+        } else {
+            todoList = createTodoList()
+        }
+        return todoList
+    }
+    catch(error){
+        console.log("Error: ", error)
+    }
+};
+
+export function updateTodoList(){
+//TODO:
+};
+
+/* export function deleteTodoList(){} */  // ROADMAP
+/* export function addTodoListToWindow(){} */  // ROADMAP
+
+
+
+
+// RENDER HTML, ADD EVENT-LISTENERS 
 
 export function renderTodoListExclTodoItems(){
 
