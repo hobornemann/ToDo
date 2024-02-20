@@ -18,6 +18,7 @@
           <section class="todo-list" data-id="asdf12423423">
 
             <div class="todo-list-header">
+              <!-- dynamic  -->
               <h3 class="todo-list-heading" contenteditable="false">My ToDo List</h3>
               <button class="edit-todo-list-heading-btn button">
                 <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" title="Change the name of the todo list" alt="edit-icon: Change the name of the todo list">
@@ -47,12 +48,12 @@
               </button>
             </div>
 
-            <div class="todo-list-main">
+            <ul class="todo-list-main">
   
-              <article class="todo-item" id="todo-item-1" draggable="true">
+              <li class="todo-item" id="todo-item-1" draggable="true">
                 <button class="status-of-todo-item-btn button">
-                  <img class="status-todo-of-todo-item-img icon" src="/icons/circle-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
-                  <img class="status-done-of-todo-item-img icon hidden" src="/icons/check-mark-button-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
+                  <img class="status-isTodo-of-todo-item-img icon" src="/icons/circle-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
+                  <img class="status-isDone-of-todo-item-img icon hidden" src="/icons/check-mark-button-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
                 </button>
                 <p class="todo-item-description-p" contenteditable="false">Städa 1</p>
                   <button class="edit-todo-item-btn button">
@@ -64,9 +65,9 @@
                 <button class="delete-todo-item-btn button">
                   <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" title="Delete the todo item" alt="delete-icon of the todo item">
                 </button>     
-              </article>
+              </li>
 
-              <article class="todo-item" id="todo-item-2" draggable="true" data-id="2">
+              <li class="todo-item" id="todo-item-2" draggable="true" data-id="2">
                 <button class="toggle-status-of-todo-item-btn button">
                   <img class="toggle-status-of-todo-item-img icon" src="/icons/double-right-svgrepo-com.svg" alt="Status of the to-do item">
                 </button>
@@ -80,9 +81,9 @@
                 <button class="delete-todo-item-btn button">
                   <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
                 </button>     
-              </article>
+              </li>
 
-              <article class="todo-item" id="todo-item-3" draggable="true" data-id="3">
+              <li class="todo-item" id="todo-item-3" draggable="true" data-id="3">
                 <button class="toggle-status-of-todo-item-btn button">
                   <img class="toggle-status-of-todo-item-img icon" src="/icons/double-right-svgrepo-com.svg" alt="Status of the to-do item">
                 </button>
@@ -96,9 +97,9 @@
                 <button class="delete-todo-item-btn button">
                   <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
                 </button>     
-              </article>
+              </li>
 
-              <article class="todo-item" id="todo-item-4" draggable="true" data-id="4">
+              <li class="todo-item" id="todo-item-4" draggable="true" data-id="4">
                 <button class="status-of-todo-item-btn button">
                   <img class="status-of-todo-item-img icon" src="/icons/double-right-svgrepo-com.svg" alt="Status of the to-do item">
                 </button>
@@ -112,9 +113,9 @@
                 <button class="delete-todo-item-btn button">
                   <img class="todo-item-img icon" src="/icons/trash-svgrepo-com.svg" alt="delete-icon of the todo-item">
                 </button>     
-              </article>
+              </li>
               
-            </div>
+            </ul>
 
             <div class="todo-list-footer">
               <input type="text" class="add-todo-item-description-input" placeholder="Write a new todo here...">
@@ -122,7 +123,6 @@
                 <!-- <img class="add-todo-item-img icon" src="/icons/plus-svgrepo-com.svg" alt=""> -->
                 Add
               </button>
-              
             </div>
           </section>
     
