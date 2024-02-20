@@ -28,16 +28,26 @@ document.addEventListener("DOMContentLoaded", () => {
 //-----------------------------------------
 
 export function initialiseTodoListAndElement(){
-
-    const todoList: TodoList | undefined = getTodoListFromLocalStorage();
-    const todoListElement: HTMLElement | null = document.querySelector(".todo-list")
-        if(todoList && todoListElement){
-            renderTodoListElement(todoList, todoListElement);
-            addEventListenersToTodoListHeaderElement(todoListElement);
-            addEventListenersToTodoListMainElement(todoListElement);
-            addEventListenersToTodoListFooterElement(todoListElement);    
-        } else {
-            console.log("getTodoList() results in undefined");
+    try{
+        const todoList: TodoList | undefined = getTodoListFromLocalStorage();
+        const todoListElement = document.querySelector(".todo-list") as HTMLElement
+        const todoListHeaderElement = todoListElement.querySelector(".todo-list-header") as HTMLElement
+        const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLUListElement
+        const todoListFooterElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
+            if(todoList && todoListElement && todoListHeaderElement && todoListMainElement && todoListFooterElement){
+                renderTodoListElement(todoList, todoListElement);
+                addEventListenersToTodoListHeaderElement(todoListHeaderElement);
+                addEventListenersToTodoListMainElement(todoListMainElement);
+                addEventListenersToTodoListFooterElement(todoListFooterElement,todoListMainElement);    
+            } else {
+                const errorMessage = "At least one of the following HTML-elements cannot be found: todo-list-header, todo-list-main and/or todo-list-footer."
+                console.error(errorMessage);
+                throw new Error(errorMessage)            
+            }
+        }
+        catch(error){
+            console.error("Error:", error);
+            throw error; 
         }
 };
 
