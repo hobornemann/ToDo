@@ -5,10 +5,10 @@
 //-----------------------------------------
 // IMPORTS
 //-----------------------------------------
-
 import { TodoList } from '../types/todo'
 import { getTodoListFromLocalStorage } from '../main';
 import { initialiseNewTodoItemAndElement } from './todoListMain';
+
 
 //-----------------------------------------
 // INITIALISE - RENDER HTML
