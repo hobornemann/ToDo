@@ -200,14 +200,14 @@ h3{
 
 }
 
-.add-todo-item-input{
+.add-todo-item-description-input{
   border-width: 1px;
   flex-grow: 1;
   padding: 0.7vh;
   border-radius: 5px;
   font-size: clamp(10px, 2vh, 20px);
-
 }
+
 
 .add-todo-item-btn{
   height: 100%;
