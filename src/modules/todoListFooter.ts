@@ -7,7 +7,7 @@
 //-----------------------------------------
 
 import { TodoList } from '../types/todo'
-import { getTodoListFromLocalStorage } from './todoList';
+import { getTodoListFromLocalStorage } from '../main';
 import { initialiseNewTodoItemAndElement } from './todoListMain';
 
 //-----------------------------------------
@@ -37,8 +37,8 @@ export function renderTodoListFooterElement(todoList: TodoList, todoListFooterEl
 // INITIALISE - EVENT LISTENERS  
 //-----------------------------------------
 
-export function addEventListenersToTodoListFooterElement(todoListElement: HTMLUListElement):void {
-    addEventListenerToAddTodoItemButtonInTodoListFooterElement(todoListElement);
+export function addEventListenersToTodoListFooterElement(todoListElement: HTMLElement, todoListMainElement: HTMLUListElement):void {
+    addEventListenerToAddTodoItemButtonInTodoListFooterElement(todoListElement, todoListMainElement);
 }
 
 
@@ -46,8 +46,8 @@ export function addEventListenersToTodoListFooterElement(todoListElement: HTMLUL
 // EVENT LISTENER - FUNCTIONS  
 //-----------------------------------------
 
-function addEventListenerToAddTodoItemButtonInTodoListFooterElement(todoListElement: HTMLUListElement){
-    const addTodoItemButton: HTMLButtonElement = todoListElement.querySelector(".add-todo-item-btn") as HTMLButtonElement;
+function addEventListenerToAddTodoItemButtonInTodoListFooterElement(todoListFooterElement: HTMLElement, todoListMainElement: HTMLUListElement){
+    const addTodoItemButton: HTMLButtonElement = todoListFooterElement.querySelector(".add-todo-item-btn") as HTMLButtonElement;
     if(addTodoItemButton){
         addTodoItemButton.addEventListener('click', function() {
             try{
@@ -56,7 +56,7 @@ function addEventListenerToAddTodoItemButtonInTodoListFooterElement(todoListElem
                 const todoList: TodoList | undefined = getTodoListFromLocalStorage();""
                 addTodoItemDescriptionInput.textContent = "";
                 if(todoList){
-                    initialiseNewTodoItemAndElement(todoList, todoListElement, description);
+                    initialiseNewTodoItemAndElement(todoList, todoListMainElement, description);
                 } else {
                     const errorMsg = "The todoList cannot be retrieved (undefined)."
                     console.error(errorMsg)
