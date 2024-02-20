@@ -58,9 +58,9 @@ function renderTodoListElement(todoList: TodoList, todoListElement: HTMLElement)
         const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLUListElement
         const todoListFooterElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
         if(todoListHeaderElement && todoListMainElement && todoListFooterElement){
-            renderTodoListHeaderElement(todoList, todoListHeaderElement);
+            renderTodoListHeaderElement(todoListHeaderElement);
             renderTodoListMainElement(todoList, todoListMainElement);
-            renderTodoListFooterElement(todoList, todoListFooterElement);
+            renderTodoListFooterElement(todoListFooterElement);
         } else {
             const errorMessage = "At least one of the following HTML-elements cannot be found: todo-list-header, todo-list-main and/or todo-list-footer."
             console.error(errorMessage);

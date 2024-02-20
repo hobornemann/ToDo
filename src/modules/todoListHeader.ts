@@ -6,14 +6,13 @@
 // IMPORTS   
 //-----------------------------------------
 
-import {TodoList} from '../types/todo'
 
 
 //-----------------------------------------
 // INITIALISE - RENDER HTML/DOM-ELEMENT   
 //-----------------------------------------
 
-export function renderTodoListHeaderElement(todoList: TodoList, todoListHeaderElement: HTMLElement){
+export function renderTodoListHeaderElement(todoListHeaderElement: HTMLElement){
     let html: string = `
         <h3 class="todo-list-heading" contenteditable="false">My ToDo List</h3>
             <button class="edit-todo-list-heading-btn button">

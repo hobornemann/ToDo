@@ -3,7 +3,7 @@
 //============================================================
 
 import { TodoList } from "../types/todo";
-import { createNewTodoList } from "./todoList";
+import { createNewTodoList } from "../main";
 
 
 export function updateTodoListInLocalStorage(todoList: TodoList): void {

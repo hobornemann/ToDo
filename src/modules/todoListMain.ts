@@ -258,7 +258,7 @@ export function createTodoItem(description: string = ''): TodoItem {
 
 /* export function getTodoItemById(id: string): TodoItem | undefined {} */  // ROADMAP
 
-function updateTodoItemById(id: string): void {
+/* function updateTodoItemById(id: string): void {
 //TODO:
 }
 
@@ -272,7 +272,7 @@ function deleteAllTodoItemElementsOfTodoList(){
 
 function addTodoItemToTodoList(todoItem: TodoItem){
 //TODO:
-};
+}; */
 
 
 

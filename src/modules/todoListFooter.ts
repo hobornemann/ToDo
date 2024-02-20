@@ -14,7 +14,7 @@ import { initialiseNewTodoItemAndElement } from './todoListMain';
 // INITIALISE - RENDER HTML
 //-----------------------------------------
 
-export function renderTodoListFooterElement(todoList: TodoList, todoListFooterElement: HTMLElement):void {
+export function renderTodoListFooterElement(todoListFooterElement: HTMLElement):void {
     try{
         let html = `
             <input type="text" class="add-todo-item-description-input" placeholder="Write a new todo here...">
