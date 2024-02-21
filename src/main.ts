@@ -30,15 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
 export function initialiseTodoListAndElement(){
     try{
         const todoList: TodoList | undefined = getTodoListFromLocalStorage();
-        //console.log("todoList:::",todoList);
         const todoListElement = document.querySelector(".todo-list") as HTMLElement
         const todoListHeaderElement = todoListElement.querySelector(".todo-list-header") as HTMLElement
         const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLElement
         const todoListFooterElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
             if(todoList && todoListElement && todoListHeaderElement && todoListMainElement && todoListFooterElement){
                 renderTodoListElement(todoList, todoListElement);
-                addEventListenersToTodoListHeaderElement(todoListHeaderElement);
-                addEventListenersToTodoListMainElement(todoListMainElement);
+                addEventListenersToTodoListHeaderElement(todoListElement);
+                addEventListenersToTodoListMainElement(todoListElement);
                 addEventListenersToTodoListFooterElement(todoListFooterElement,todoListMainElement);    
             } else {
                 const errorMessage = "At least one of the following HTML-elements cannot be found: todo-list-header, todo-list-main and/or todo-list-footer."
@@ -54,8 +53,6 @@ export function initialiseTodoListAndElement(){
 
 
 function renderTodoListElement(todoList: TodoList, todoListElement: HTMLElement){
-    /* console.log("todoList:",todoList);
-    console.log("todoListElement.innerHTML:",todoListElement.innerHTML); */
     try{
         const todoListHeaderElement = todoListElement.querySelector(".todo-list-header") as HTMLElement
         const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLElement
@@ -119,85 +116,4 @@ export function updateTodoListInLocalStorage(todoList: TodoList){
 /* export function deleteTodoList(){} */  // ROADMAP
 /* export function addTodoListToWindow(){} */  // ROADMAP
 
-
-
-//-------------------------------------------------------------
-// HTML/DOM ELEMENT - CREATE, GET (READ), UPDATE, DELETE, ADD 
-//-------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//----------------------------------------------------------
-// OLD CODE
-//----------------------------------------------------------
-
-/* import { v4 as uuidv4 } from 'uuid'; */
-
-/* // TODO: delete the below code?
-// Generate a UUID
-const myUUID: string = uuidv4();
-console.log(myUUID); */
-
-/* const statusOfTodoItemBtn = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement;
-const statusTodoOfTodoItemImg = todoItemElement.querySelector(".status-todo-of-todo-item-img") as HTMLImageElement;
-const statusDoneOfTodoItemImg = todoItemElement.querySelector(".status-done-of-todo-item-img") as HTMLImageElement;
-statusOfTodoItemBtn?.addEventListener('click', ()=>{
-    statusOfTodoItemBtn.classList.toggle('checked');
-    statusTodoOfTodoItemImg.classList.toggle('hidden');
-    statusDoneOfTodoItemImg.classList.toggle('hidden');
-    //: flytta ner/upp todo-item i listan ?
-}); */
-
-
-
-/* 
-if(obj.action === "Status"){
-    obj.button?.addEventListener('click', ()=>{
-        obj.button?.classList.toggle('checked');
-        const statusTodoOfTodoItemImg = todoItemElement.querySelector(".status-todo-of-todo-item-img") as HTMLImageElement;
-        const statusDoneOfTodoItemImg = todoItemElement.querySelector(".status-done-of-todo-item-img") as HTMLImageElement;
-        statusTodoOfTodoItemImg.classList.toggle('hidden');
-        statusDoneOfTodoItemImg.classList.toggle('hidden');
-        // flytta ner/upp todo-item i listan ?
-} else if (obj.action === "Edit"){
-    //
-} else if(obj.action === "Check"){
-    //
-} else if(obj.action === "Delete"){
-    //       
-}
- */
-
-
-
-/* 
-
-function initialiseTodoListMainElement(todoList: TodoList):void{
-    addEventListenersToButtonsOfTodoListMain(todoList);
-    addEventListenerForDragAndDropOnTodoListMain(todoList);
-};
-
-function initialiseTodoListFooterElement(todoList: TodoList):void{
-    addEventListenersToButtonsOfTodoListFooter(todoList);
-}; */
-
-/* renderTodoListExclTodoItems();
-renderTodoItems(allTodoItems);
-addDragAndDropEventListenersToEachTodoItem();
- */
 

@@ -7,6 +7,7 @@
 //-----------------------------------------
 import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from '../main'
 import { TodoList } from '../types/todo';
+import { deleteAllTodoItemsFromTsObject, renderTodoListMainElement } from './todoListMain';
 
 
 //-----------------------------------------
@@ -56,7 +57,7 @@ export function renderTodoListHeaderElement(todoListHeaderElement: HTMLElement){
 export function addEventListenersToTodoListHeaderElement(todoListElement: HTMLElement):void {  
     addEventListenerToEditButtonInTodoListHeaderElement(todoListElement);
     addEventListenerToInfoButtonInTodoListHeaderElement(todoListElement);
-    addEventListenerToDeleteTodoItemsButtonInTodoListHeaderElement(todoListElement);
+    addEventListenerToDeleteAllTodoItemsButtonInTodoListHeaderElement(todoListElement);
 };
 
 
@@ -130,15 +131,20 @@ function addEventListenerToInfoButtonInTodoListHeaderElement(todoListElement: HT
 };
 
 
-function addEventListenerToDeleteTodoItemsButtonInTodoListHeaderElement(todoListElement: HTMLElement){
+function addEventListenerToDeleteAllTodoItemsButtonInTodoListHeaderElement(todoListElement: HTMLElement){
     try {
         const deleteAllTodoItemsButton = todoListElement.querySelector(".delete-all-todo-items-btn") as HTMLButtonElement;
         deleteAllTodoItemsButton?.addEventListener('click', () => {
-            const todoItems: NodeListOf<HTMLElement> = todoListElement.querySelectorAll('.todo-item') as NodeListOf<HTMLElement>;
-            todoItems.forEach(todoItem => {
-                todoItem.remove();
+            const todoItemElements: NodeListOf<HTMLElement> = todoListElement.querySelectorAll('.todo-item') as NodeListOf<HTMLElement>;
+            todoItemElements.forEach(todoItemElement => {
+                todoItemElement.remove();
             });
         });
+        let todoList = getTodoListFromLocalStorage()
+            if(todoList){
+                let updatedTodoList = deleteAllTodoItemsFromTsObject(todoList);
+                updateTodoListInLocalStorage(updatedTodoList);
+            }
     } catch (error) {
         console.error('An error occurred while accessing elements:', error);
     }

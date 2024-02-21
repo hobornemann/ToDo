@@ -305,26 +305,33 @@ function updateTodoItemDescriptionInTsObject(todoList: TodoList, todoItemId: str
         ...todoList,
         todoItems: updatedTodoItems
     };
-  }
+}
 
 
 
 function deleteTodoItemFromTsObject(todoList: TodoList, todoItemId: string): TodoList {
     if (!todoList.todoItems) {
-      return todoList; 
+        return todoList; 
     }
     const indexOfTodoItemToDelete = todoList.todoItems.findIndex(item => item.id === todoItemId);
     if (indexOfTodoItemToDelete === -1) {
-      return todoList; 
+        return todoList; 
     }
     const updatedTodoItems = todoList.todoItems.filter(item => item.id !== todoItemId);
 
     return {
-      ...todoList,
-      todoItems: updatedTodoItems.length > 0 ? updatedTodoItems : null
+        ...todoList,
+        todoItems: updatedTodoItems.length > 0 ? updatedTodoItems : null
     };
-  }
-  
+}
+
+
+export function deleteAllTodoItemsFromTsObject(todoList: TodoList): TodoList{
+    return {
+        ...todoList,
+        todoItems: []
+    };
+};
 
 //----------------------------------------------------
 // TS-OBJECT - CREATE, GET(READ), UPDATE, DELETE, ADD  
