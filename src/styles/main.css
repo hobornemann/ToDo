@@ -101,6 +101,7 @@ h3{
   flex-grow: 1; 
 } 
 
+
 .todo-list-heading[contenteditable="true"] {
   border: 1px solid #ccc;
 }
@@ -143,8 +144,6 @@ h3{
 .icon{
   height: clamp(12px, 1.8vh, 23px);
   width: clamp(12px, 1.8vh, 23px);
-
-  
 }
 
 .delete-todo-list-btn{
@@ -180,11 +179,14 @@ h3{
   cursor: grab;
 }
 
-.todo-description-p{
+.todo-item-description-p{
   flex-grow: 1;
   margin: 0 0.7vh;
 }
 
+.todo-item-description-p[contenteditable="true"] {
+  border: 1px solid var(--todo-item-font-color);
+}
 
 
 .todo-list-footer{
@@ -214,9 +216,16 @@ h3{
   border-radius: 5px;
   padding: 0 0.7vh;
   font-size: clamp(10px, 2vh, 20px);
-
 }
 
+
+.add-todo-item-info-btn{
+  visibility: hidden;
+  width: 0.1px;
+  height: 0.1px;
+  padding: 0;
+  margin: 0;
+}
 
 /* INFO-DIALOG */
 
