@@ -123,7 +123,6 @@ h3{
 .status-of-todo-item-btn{
   background-color: var(--todo-item-background-color);
   background-image: url("/icons/circle-svgrepo-com.svg");
-/*   background-size: cover; */
   border: none;
   cursor: pointer;
 }
@@ -146,14 +145,6 @@ h3{
   width: clamp(12px, 1.8vh, 23px);
 }
 
-.delete-todo-list-btn{
-
-}
-
-.todo-list-icon{
-
-}
-
 .bold{
   font-weight: 600;
 }
@@ -163,6 +154,7 @@ h3{
   width: 100%;
   background-color: var(--todo-list-main-background-color);
   padding: min(1.5vw, 1.5vh);
+  overflow-y: scroll;
 }
 
 .todo-item{
@@ -174,8 +166,8 @@ h3{
   width: 100%;
   background-color: var(--todo-item-background-color);
   border-radius: 5px;
-  margin-top: 0.7vh;
-  margin-bottom: 0.7vh;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
   cursor: grab;
 }
 

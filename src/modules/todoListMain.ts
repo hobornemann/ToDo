@@ -12,13 +12,9 @@ import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from './loc
 //-----------------------------------------
 
 export function renderTodoListMainElement(todoList: TodoList, todoListMainElement: HTMLElement):void {
-    console.log("renderTodoListMainElement function");
-    console.log("todoList:",todoList);
-    
     try{
         if(todoListMainElement){
             let html: string = "";
-            //console.log("todoList::",todoList);
             if(todoList.todoItems){
                 todoList.todoItems.forEach(todoItem => {
                     html += createHtmlForNewTodoItemElement(todoItem)  
@@ -85,13 +81,13 @@ function createHtmlForNewTodoItemElement(todoItem: TodoItem): string{
                 emptyCircle = "";
                 checkMark = "hidden";
             }
-            //console.log("emptyCircle",emptyCircle);
-            //console.log("checkMark",checkMark);
+            console.log("emptyCircle",emptyCircle);
+            console.log("checkMark",checkMark);
             
             let html = `
                 <li class="todo-item" id="${todoItem.id}" draggable="true">
                     <button class="status-of-todo-item-btn button">
-                        <img class="status-todo-of-todo-item-img icon ${emptyCircle}" src="/icons/circle-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
+                        <img class="status-todo-of-todo-item-img icon ${emptyCircle}" src="/icons/circle-button-joystick-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
                         <img class="status-done-of-todo-item-img icon ${checkMark}" src="/icons/check-mark-button-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
                     </button>
                     <p class="todo-item-description-p" contenteditable="false">${todoItem.description}</p>
@@ -127,11 +123,7 @@ function createHtmlForNewTodoItemElement(todoItem: TodoItem): string{
 export function initialiseNewTodoItemAndElement(todoList: TodoList, todoListMainElement: HTMLElement, description: string){
     // TS-object & localStorage
     const todoItem: TodoItem = createTodoItem(description);
-    console.log("HALLO todoItem1",todoItem);
-
-
     const updatedTodoList = addNewTodoItemAtStartOfTodoList(todoItem, todoList);
-    console.log("updatedTodoList1",updatedTodoList);
     updateTodoListInLocalStorage(updatedTodoList);
     // update HTML/DOM
     const todoItemElement = createNewTodoItemElement(todoItem);
@@ -151,7 +143,7 @@ function createNewTodoItemElement(todoItem: TodoItem){
     todoItemElement.draggable = true;
     let html = `
         <button class="status-of-todo-item-btn button">
-            <img class="status-todo-of-todo-item-img icon" src="/icons/circle-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
+            <img class="status-todo-of-todo-item-img icon" src="/icons/circle-button-joystick-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
             <img class="status-done-of-todo-item-img icon hidden" src="/icons/check-mark-button-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
         </button>
         <p class="todo-item-description-p" contenteditable="false">${todoItem.description}</p>
@@ -170,12 +162,9 @@ function createNewTodoItemElement(todoItem: TodoItem){
 }
 
 function addNewTodoItemAtStartOfTodoList(todoItem: TodoItem, todoList: TodoList) {
-    console.log("addNewTodoItemAtStartOfTodoList function");
-    
     try {
         const updatedTodoList = { ...todoList };
         if (todoItem) {
-          
             if (updatedTodoList.todoItems === null) {
                 updatedTodoList.todoItems = [todoItem];
             } else {
@@ -217,14 +206,12 @@ function addEventListenerToEditButtonOnTodoItemElement(todoItemElement: HTMLElem
         const editButtonOnTodoItemElement = todoItemElement.querySelector(".edit-todo-item-btn") as HTMLButtonElement
         const todoItemDescriptionPElement = todoItemElement.querySelector('.todo-item-description-p') as HTMLElement;
         let description: string | null = todoItemDescriptionPElement.textContent;
-        //console.log("",description);
         editButtonOnTodoItemElement.addEventListener('click', () => {
             const isEditable = todoItemDescriptionPElement?.getAttribute('contenteditable') === 'true';
             if (isEditable && todoItemDescriptionPElement) {
                 todoItemDescriptionPElement.setAttribute('contenteditable', 'false');
                 editButtonOnTodoItemElement.innerHTML = `<img class="todo-item-img icon"  src="/icons/pencil-svgrepo-com.svg" title="Edit description of the todo item" alt="edit-icon of the todo item">`;
                 description = todoItemDescriptionPElement.textContent;
-                //console.log("",description);
                 let todoItemId = todoItemElement.id;
                 let todoList = getTodoListFromLocalStorage()
                 if(todoList){
@@ -245,7 +232,17 @@ function addEventListenerToEditButtonOnTodoItemElement(todoItemElement: HTMLElem
 };
 
 function addEventListenerToCheckButtonOnTodoItemElement(todoItemElement: HTMLElement){
-    toggleStatusButtonOnTodoItemElement(todoItemElement);
+    const checkButtonOnTodoItemElement = todoItemElement.querySelector(".check-todo-item-btn") as HTMLButtonElement
+    try{
+        checkButtonOnTodoItemElement.addEventListener('click', () => {
+            const statusButtonOnTodoItemElement = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement
+            statusButtonOnTodoItemElement.click()
+        })
+    }
+    catch(error){
+        console.log("Error in event-listener for status-of-todo-item-btn.", error);
+        throw error;
+    }
 };
 
 function addEventListenerToDeleteButtonOnTodoItemElement(todoItemElement: HTMLElement){
@@ -268,28 +265,29 @@ function addEventListenerToDeleteButtonOnTodoItemElement(todoItemElement: HTMLEl
 
 function toggleStatusButtonOnTodoItemElement(todoItemElement: HTMLElement){
     try{
-        
-        
         const statusButtonOnTodoItemElement = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement;
-        
         const statusTodoOfTodoItemImg = todoItemElement.querySelector(".status-todo-of-todo-item-img") as HTMLImageElement;
         const statusDoneOfTodoItemImg = todoItemElement.querySelector(".status-done-of-todo-item-img") as HTMLImageElement;
 
         statusButtonOnTodoItemElement.addEventListener('click', ()=>{ 
-            console.log("status clicked");           
+            console.log("todoItemElement",todoItemElement)
+            console.log("status clicked"); 
+            let newIsDoneStatus: boolean;          
             if(statusDoneOfTodoItemImg.classList.contains('hidden')){
                 statusTodoOfTodoItemImg.classList.add('hidden');
                 statusDoneOfTodoItemImg.classList.remove('hidden');
+                newIsDoneStatus = true
             } else {
                 statusTodoOfTodoItemImg.classList.remove('hidden');
                 statusDoneOfTodoItemImg.classList.add('hidden');
+                newIsDoneStatus = false
             }
-            // TODO: updatera local storage
-            /* 
-            todoItemElement.classList.toggle('checked');
-            statusTodoOfTodoItemImg.classList.toggle('hidden');
-            statusDoneOfTodoItemImg.classList.toggle('hidden'); */
-            //TODO: flytta ner/upp todo-item i listan ?
+            let todoItemId = todoItemElement.id
+            let todoList = getTodoListFromLocalStorage()
+            if(todoList){
+                let updatedTodoList = updateTodoItemStatusInTsObject(todoList, todoItemId, newIsDoneStatus)
+                updateTodoListInLocalStorage(updatedTodoList)
+            }
         });    
     }
     catch(error:any){
@@ -299,9 +297,34 @@ function toggleStatusButtonOnTodoItemElement(todoItemElement: HTMLElement){
 }
 
 
+function updateTodoItemStatusInTsObject(todoList: TodoList, todoItemId: string, newIsDoneStatus: boolean): TodoList {
+    if (!todoList.todoItems) {
+        return todoList; 
+    }
+
+    const indexOfTodoItemToUpdate = todoList.todoItems.findIndex(item => item.id === todoItemId);
+    if (indexOfTodoItemToUpdate === -1) {
+        return todoList; 
+    }
+
+    const updatedTodoItems = todoList.todoItems.map(item => {
+        if (item.id === todoItemId) {
+            return {
+                ...item,
+                isDone: newIsDoneStatus
+            };
+        }
+        return item;
+    });
+
+    return {
+        ...todoList,
+        todoItems: updatedTodoItems
+    };
+}
+
+
 function updateTodoItemDescriptionInTsObject(todoList: TodoList, todoItemId: string, newDescription: string | null): TodoList {
-    console.log("updateTodoItemDescriptionInTsObject");
-    
     if (!todoList.todoItems) {
         return todoList; 
     }
@@ -330,8 +353,6 @@ function updateTodoItemDescriptionInTsObject(todoList: TodoList, todoItemId: str
 
 
 function deleteTodoItemFromTsObject(todoList: TodoList, todoItemId: string): TodoList {
-    console.log("deleteTodoItemFromTsObject function");
-    
     if (!todoList.todoItems) {
         return todoList; 
     }
@@ -349,9 +370,6 @@ function deleteTodoItemFromTsObject(todoList: TodoList, todoItemId: string): Tod
 
 
 export function deleteAllTodoItemsFromTsObject(todoList: TodoList): TodoList{
-    console.log("deleteAllTodoItemsFromTsObject function");
-    console.log("todoList::",todoList);
-    
     return {
         ...todoList,
         todoItems: []

@@ -67,35 +67,22 @@ export function addEventListenersToTodoListHeaderElement(todoListElement: HTMLEl
 
 
 function addEventListenerToEditButtonInTodoListHeaderElement(todoListElement: HTMLElement){
-    //console.log("todoListElement::",todoListElement);
     
     try {
         const editTodoListHeadingBtn = todoListElement.querySelector('.edit-todo-list-heading-btn') as HTMLButtonElement;
-        //console.log("editTodoListHeadingBtn::",editTodoListHeadingBtn);
-        
         const todoListHeading = todoListElement.querySelector('.todo-list-heading') as HTMLElement;
-        console.log("todoListHeading::",todoListHeading);
-        
         let title: string = "";
         
         editTodoListHeadingBtn.addEventListener('click', () => {
             const isEditable = todoListHeading?.getAttribute('contenteditable') === 'true';
-            console.log("isEditable::",isEditable);
-            
             if (isEditable && todoListHeading) {
                 title = todoListHeading.textContent || "";
-                /* if(title = null){
-                    alert("Oopsy Daisy! You forgot to give your todo-list a title...")
-                    return
-                } */
                 todoListHeading.setAttribute('contenteditable', 'false');
                 editTodoListHeadingBtn.innerHTML = `<img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" title="Change the name of the todo list" alt="edit-icon: Change the name of the todo list">`;
                 let todoList = getTodoListFromLocalStorage()
                 if(todoList){
                     let updatedTodoList = updateTodoListTitleInTsObject(todoList, title);
-                    //console.log("updatedTodoList::",updatedTodoList);
                     updateTodoListInLocalStorage(updatedTodoList);
-                    console.log("local storage todolist::",getTodoListFromLocalStorage())
                 }
             } else {
                 todoListHeading?.setAttribute('contenteditable', 'true');
@@ -145,7 +132,6 @@ function addEventListenerToDeleteAllTodoItemsButtonInTodoListHeaderElement(todoL
                 
                 if(todoList){
                     let updatedTodoList = deleteAllTodoItemsFromTsObject(todoList);
-                    console.log("updatedTodoList i D-all",updatedTodoList);
                     updateTodoListInLocalStorage(updatedTodoList);
                 }
             });
