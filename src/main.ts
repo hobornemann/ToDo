@@ -30,9 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
 export function initialiseTodoListAndElement(){
     try{
         const todoList: TodoList | undefined = getTodoListFromLocalStorage();
+        //console.log("todoList:::",todoList);
         const todoListElement = document.querySelector(".todo-list") as HTMLElement
         const todoListHeaderElement = todoListElement.querySelector(".todo-list-header") as HTMLElement
-        const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLUListElement
+        const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLElement
         const todoListFooterElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
             if(todoList && todoListElement && todoListHeaderElement && todoListMainElement && todoListFooterElement){
                 renderTodoListElement(todoList, todoListElement);
@@ -53,9 +54,11 @@ export function initialiseTodoListAndElement(){
 
 
 function renderTodoListElement(todoList: TodoList, todoListElement: HTMLElement){
+    /* console.log("todoList:",todoList);
+    console.log("todoListElement.innerHTML:",todoListElement.innerHTML); */
     try{
         const todoListHeaderElement = todoListElement.querySelector(".todo-list-header") as HTMLElement
-        const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLUListElement
+        const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLElement
         const todoListFooterElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
         if(todoListHeaderElement && todoListMainElement && todoListFooterElement){
             renderTodoListHeaderElement(todoListHeaderElement);
@@ -92,8 +95,12 @@ export function getTodoListFromLocalStorage(): TodoList | undefined {
     try{
         let todoList: TodoList;
         const todoListJson = localStorage.getItem('todoList');
+        //console.log("todoListJson: ",todoListJson);
         if(todoListJson){
             todoList = JSON.parse(todoListJson)
+            if(todoList.todoItems === null){
+                
+            }
         } else {
             todoList = createNewTodoList()
         }
