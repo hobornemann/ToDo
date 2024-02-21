@@ -6,7 +6,7 @@
 // IMPORTS
 //-----------------------------------------
 import { TodoList } from '../types/todo'
-import { getTodoListFromLocalStorage } from '../main';
+import { getTodoListFromLocalStorage } from './localStorage';
 import { initialiseNewTodoItemAndElement } from './todoListMain';
 
 

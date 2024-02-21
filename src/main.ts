@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { renderTodoListHeaderElement, addEventListenersToTodoListHeaderElement} from './modules/todoListHeader.ts'
 import { renderTodoListMainElement, addEventListenersToTodoListMainElement} from './modules/todoListMain.ts'
 import { renderTodoListFooterElement, addEventListenersToTodoListFooterElement} from './modules/todoListFooter.ts'
+import { getTodoListFromLocalStorage } from './modules/localStorage.ts'
 
 
 
@@ -88,30 +89,28 @@ export function createNewTodoList(): TodoList{
 };
 
 
-export function getTodoListFromLocalStorage(): TodoList | undefined {
+/* export function getTodoListFromLocalStorage(): TodoList | undefined {
     try{
         let todoList: TodoList;
         const todoListJson = localStorage.getItem('todoList');
         //console.log("todoListJson: ",todoListJson);
         if(todoListJson){
             todoList = JSON.parse(todoListJson)
-            if(todoList.todoItems === null){
-                
-            }
+            return todoList
         } else {
             todoList = createNewTodoList()
+            return todoList
         }
-        return todoList
     }
     catch(error){
         console.log("Error: ", error)
     }
-};
+} */
 
 
 export function updateTodoListInLocalStorage(todoList: TodoList){
     localStorage.setItem('todoList', JSON.stringify(todoList));
-};
+}
 
 /* export function deleteTodoList(){} */  // ROADMAP
 /* export function addTodoListToWindow(){} */  // ROADMAP

@@ -4,7 +4,7 @@
 
 import { TodoItem, TodoList } from '../types/todo'
 import { v4 as uuidv4 } from 'uuid';
-import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from '../main'
+import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from './localStorage'
 
 
 //-----------------------------------------
@@ -12,7 +12,9 @@ import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from '../ma
 //-----------------------------------------
 
 export function renderTodoListMainElement(todoList: TodoList, todoListMainElement: HTMLElement):void {
-
+    console.log("renderTodoListMainElement function");
+    console.log("todoList:",todoList);
+    
     try{
         if(todoListMainElement){
             let html: string = "";
@@ -168,6 +170,8 @@ function createNewTodoItemElement(todoItem: TodoItem){
 }
 
 function addNewTodoItemAtStartOfTodoList(todoItem: TodoItem, todoList: TodoList) {
+    console.log("addNewTodoItemAtStartOfTodoList function");
+    
     try {
         const updatedTodoList = { ...todoList };
         if (todoItem) {
@@ -263,14 +267,28 @@ function addEventListenerToDeleteButtonOnTodoItemElement(todoItemElement: HTMLEl
 };
 
 function toggleStatusButtonOnTodoItemElement(todoItemElement: HTMLElement){
-    const statusButtonOnTodoItemElement = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement;
     try{
+        
+        
+        const statusButtonOnTodoItemElement = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement;
+        
         const statusTodoOfTodoItemImg = todoItemElement.querySelector(".status-todo-of-todo-item-img") as HTMLImageElement;
         const statusDoneOfTodoItemImg = todoItemElement.querySelector(".status-done-of-todo-item-img") as HTMLImageElement;
-        statusButtonOnTodoItemElement.addEventListener('click', ()=>{
+
+        statusButtonOnTodoItemElement.addEventListener('click', ()=>{ 
+            console.log("status clicked");           
+            if(statusDoneOfTodoItemImg.classList.contains('hidden')){
+                statusTodoOfTodoItemImg.classList.add('hidden');
+                statusDoneOfTodoItemImg.classList.remove('hidden');
+            } else {
+                statusTodoOfTodoItemImg.classList.remove('hidden');
+                statusDoneOfTodoItemImg.classList.add('hidden');
+            }
+            // TODO: updatera local storage
+            /* 
             todoItemElement.classList.toggle('checked');
             statusTodoOfTodoItemImg.classList.toggle('hidden');
-            statusDoneOfTodoItemImg.classList.toggle('hidden');
+            statusDoneOfTodoItemImg.classList.toggle('hidden'); */
             //TODO: flytta ner/upp todo-item i listan ?
         });    
     }
@@ -282,6 +300,8 @@ function toggleStatusButtonOnTodoItemElement(todoItemElement: HTMLElement){
 
 
 function updateTodoItemDescriptionInTsObject(todoList: TodoList, todoItemId: string, newDescription: string | null): TodoList {
+    console.log("updateTodoItemDescriptionInTsObject");
+    
     if (!todoList.todoItems) {
         return todoList; 
     }
@@ -310,6 +330,8 @@ function updateTodoItemDescriptionInTsObject(todoList: TodoList, todoItemId: str
 
 
 function deleteTodoItemFromTsObject(todoList: TodoList, todoItemId: string): TodoList {
+    console.log("deleteTodoItemFromTsObject function");
+    
     if (!todoList.todoItems) {
         return todoList; 
     }
@@ -327,6 +349,9 @@ function deleteTodoItemFromTsObject(todoList: TodoList, todoItemId: string): Tod
 
 
 export function deleteAllTodoItemsFromTsObject(todoList: TodoList): TodoList{
+    console.log("deleteAllTodoItemsFromTsObject function");
+    console.log("todoList::",todoList);
+    
     return {
         ...todoList,
         todoItems: []

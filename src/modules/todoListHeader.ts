@@ -5,9 +5,9 @@
 //-----------------------------------------
 // IMPORTS   
 //-----------------------------------------
-import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from '../main'
+import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from './localStorage'
 import { TodoList } from '../types/todo';
-import { deleteAllTodoItemsFromTsObject, renderTodoListMainElement } from './todoListMain';
+import { deleteAllTodoItemsFromTsObject } from './todoListMain';
 
 
 //-----------------------------------------
@@ -134,17 +134,22 @@ function addEventListenerToInfoButtonInTodoListHeaderElement(todoListElement: HT
 function addEventListenerToDeleteAllTodoItemsButtonInTodoListHeaderElement(todoListElement: HTMLElement){
     try {
         const deleteAllTodoItemsButton = todoListElement.querySelector(".delete-all-todo-items-btn") as HTMLButtonElement;
-        deleteAllTodoItemsButton?.addEventListener('click', () => {
-            const todoItemElements: NodeListOf<HTMLElement> = todoListElement.querySelectorAll('.todo-item') as NodeListOf<HTMLElement>;
-            todoItemElements.forEach(todoItemElement => {
-                todoItemElement.remove();
+        
+        if(deleteAllTodoItemsButton){
+            deleteAllTodoItemsButton.addEventListener('click', () => {
+                const todoItemElements: NodeListOf<HTMLElement> = todoListElement.querySelectorAll('.todo-item') as NodeListOf<HTMLElement>;
+                todoItemElements.forEach(todoItemElement => {
+                    todoItemElement.remove();
+                });
+                let todoList = getTodoListFromLocalStorage()
+                
+                if(todoList){
+                    let updatedTodoList = deleteAllTodoItemsFromTsObject(todoList);
+                    console.log("updatedTodoList i D-all",updatedTodoList);
+                    updateTodoListInLocalStorage(updatedTodoList);
+                }
             });
-        });
-        let todoList = getTodoListFromLocalStorage()
-            if(todoList){
-                let updatedTodoList = deleteAllTodoItemsFromTsObject(todoList);
-                updateTodoListInLocalStorage(updatedTodoList);
-            }
+        }
     } catch (error) {
         console.error('An error occurred while accessing elements:', error);
     }
