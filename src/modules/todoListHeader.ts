@@ -5,7 +5,8 @@
 //-----------------------------------------
 // IMPORTS   
 //-----------------------------------------
-
+import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from '../main'
+import { TodoList } from '../types/todo';
 
 
 //-----------------------------------------
@@ -13,12 +14,14 @@
 //-----------------------------------------
 
 export function renderTodoListHeaderElement(todoListHeaderElement: HTMLElement){
+    let todoList = getTodoListFromLocalStorage();
+    let title = todoList?.title || "My Todo List"
     let html: string = `
-        <h3 class="todo-list-heading" contenteditable="false">My ToDo List</h3>
+        <h3 class="todo-list-heading" contenteditable="false">${title}</h3>
             <button class="edit-todo-list-heading-btn button">
                 <img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" title="Change the name of the todo list" alt="edit-icon: Change the name of the todo list">
             </button>
-            <button class="info-about-todo-list-btn button">
+            <button class="info-btn button">
                 <img class="todo-item-img icon" src="/icons/info-borderless-svgrepo-com.svg" title="Intro to the todo list" alt="info-icon: Intro to the todo list">
             </button>
             <div class="info-dialog">
@@ -31,8 +34,8 @@ export function renderTodoListHeaderElement(todoListHeaderElement: HTMLElement){
                 <br>
                 <li class="bold">ToDo Items</li>
                 <li>Click & drag: Change priority of your todos by clicking & dragging them.</li>
-                <li>Edit: Edit todo-text or title of todo list by clicking the pencil icon.</li>
-                <li>Check: When you have completed the todo and want to keep it further down in the todo list, click the check-icon.</li>
+                <li>Edit: Edit todo-text by clicking the pencil icon.</li>
+                <li>Check: When you have completed the todo item and want to keep it further down in the todo list, click the check-icon.</li>
                 <li>Delete: Click the trash can of the todo item, if you want to delete the item.</li>                
                 <br>
                 <button class="close-info-dialog-btn button">&nbsp; Close &nbsp; </button>
@@ -63,16 +66,36 @@ export function addEventListenersToTodoListHeaderElement(todoListElement: HTMLEl
 
 
 function addEventListenerToEditButtonInTodoListHeaderElement(todoListElement: HTMLElement){
+    //console.log("todoListElement::",todoListElement);
+    
     try {
-        const editTodoListHeadingBtn = todoListElement.querySelector('.edit-todo-list-heading-btn') as HTMLElement;
+        const editTodoListHeadingBtn = todoListElement.querySelector('.edit-todo-list-heading-btn') as HTMLButtonElement;
+        //console.log("editTodoListHeadingBtn::",editTodoListHeadingBtn);
+        
         const todoListHeading = todoListElement.querySelector('.todo-list-heading') as HTMLElement;
-
-        editTodoListHeadingBtn?.addEventListener('click', () => {
+        console.log("todoListHeading::",todoListHeading);
+        
+        let title: string = "";
+        
+        editTodoListHeadingBtn.addEventListener('click', () => {
             const isEditable = todoListHeading?.getAttribute('contenteditable') === 'true';
-
-            if (isEditable) {
-                todoListHeading?.setAttribute('contenteditable', 'false');
+            console.log("isEditable::",isEditable);
+            
+            if (isEditable && todoListHeading) {
+                title = todoListHeading.textContent || "";
+                /* if(title = null){
+                    alert("Oopsy Daisy! You forgot to give your todo-list a title...")
+                    return
+                } */
+                todoListHeading.setAttribute('contenteditable', 'false');
                 editTodoListHeadingBtn.innerHTML = `<img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" title="Change the name of the todo list" alt="edit-icon: Change the name of the todo list">`;
+                let todoList = getTodoListFromLocalStorage()
+                if(todoList){
+                    let updatedTodoList = updateTodoListTitleInTsObject(todoList, title);
+                    //console.log("updatedTodoList::",updatedTodoList);
+                    updateTodoListInLocalStorage(updatedTodoList);
+                    console.log("local storage todolist::",getTodoListFromLocalStorage())
+                }
             } else {
                 todoListHeading?.setAttribute('contenteditable', 'true');
                 editTodoListHeadingBtn.innerText = 'Save';
@@ -86,7 +109,7 @@ function addEventListenerToEditButtonInTodoListHeaderElement(todoListElement: HT
 
 function addEventListenerToInfoButtonInTodoListHeaderElement(todoListElement: HTMLElement){
     
-    const infoButtons = todoListElement.querySelectorAll('.info-about-todo-list-btn');
+    const infoButtons = todoListElement.querySelectorAll('.info-btn');
     const infoDialogs = todoListElement.querySelectorAll('.info-dialog');
     const closeInfoDialogButtons = todoListElement.querySelectorAll('.close-info-dialog-btn');
     const infoDialogOverlays = todoListElement.querySelectorAll('.info-dialog-overlay');
@@ -121,3 +144,7 @@ function addEventListenerToDeleteTodoItemsButtonInTodoListHeaderElement(todoList
     }
 };
 
+
+function updateTodoListTitleInTsObject(todoList: TodoList, newTitle: string){
+    return {...todoList, title: newTitle}; 
+}
