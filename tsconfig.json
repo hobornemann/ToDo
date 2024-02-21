@@ -19,5 +19,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "z_ToBeDeleted"]
+  "include": ["src", "z_ignore"]
 }

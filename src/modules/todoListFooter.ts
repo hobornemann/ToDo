@@ -14,12 +14,11 @@ import { initialiseNewTodoItemAndElement } from './todoListMain';
 // INITIALISE - RENDER HTML
 //-----------------------------------------
 
-            
 
 export function renderTodoListFooterElement(todoListFooterElement: HTMLElement):void {
     try{
-        let html = `
-            <input type="text" class="add-todo-item-description-input" placeholder="Write a new todo here...">
+        let html: string = `
+            <input type="text" class="add-todo-item-description-input" placeholder="Write a new todo item here...">
             <button class="info-btn button info-btn-hidden add-todo-item-info-btn"></button>
             <button class="add-todo-item-btn button">
                 <img class="add-todo-item-img icon" src="/icons/plus-svgrepo-com.svg" alt="">
@@ -36,8 +35,8 @@ export function renderTodoListFooterElement(todoListFooterElement: HTMLElement):
         `;
         todoListFooterElement.innerHTML = html;
     } 
-    catch(error){
-        const errorMsg = "Error when rendering HTML for todoListFooter."
+    catch(error: unknown){
+        const errorMsg: string = "Error when rendering HTML for todoListFooter."
         console.error(errorMsg)
         throw new Error(errorMsg)
     }
@@ -57,44 +56,36 @@ export function addEventListenersToTodoListFooterElement(todoListElement: HTMLEl
 // EVENT LISTENER - FUNCTIONS  
 //-----------------------------------------
 
-function addEventListenerToAddTodoItemButtonInTodoListFooterElement(todoListFooterElement: HTMLElement, todoListMainElement: HTMLElement){
+function addEventListenerToAddTodoItemButtonInTodoListFooterElement(todoListFooterElement: HTMLElement, todoListMainElement: HTMLElement):void {
     const addTodoItemButton: HTMLButtonElement = todoListFooterElement.querySelector(".add-todo-item-btn") as HTMLButtonElement;
     if(addTodoItemButton){
         addTodoItemButton.addEventListener('click', function() {
             try{
                 const addTodoItemDescriptionInput: HTMLInputElement = document.querySelector(".add-todo-item-description-input") as HTMLInputElement;
-                const description = addTodoItemDescriptionInput.value;
-                if(description==""){
+                const description: string = addTodoItemDescriptionInput.value;
+                if(description == ""){
                         alert("Ouups! You forgot to write your todo-text...")
                     return
-                    // ROADMAP
-                    /* const addTodoItemInfoButton = todoListFooterElement.querySelector(".add-todo-item-info-btn") as HTMLButtonElement
-                    console.log("HEJ addTodoItemInfoButton",addTodoItemInfoButton);
-                    
-                    if(addTodoItemInfoButton){
-                        addTodoItemInfoButton.click();
-                        return
-                    } */
                 }
-                const todoList: TodoList | undefined = getTodoListFromLocalStorage();""
+                const todoList: TodoList | undefined = getTodoListFromLocalStorage();
                 addTodoItemDescriptionInput.value = "";  
                 if(todoList){
                     initialiseNewTodoItemAndElement(todoList, todoListMainElement, description);
                 } else {
-                    const errorMsg = "The todoList cannot be retrieved (undefined)."
+                    const errorMsg: string = "The todoList cannot be retrieved (undefined)."
                     console.error(errorMsg)
                     throw new Error(errorMsg)
                 }
                 return description
             }
-            catch(error){
-                const errorMsg = "Error when adding creating a todo-item and/or when adding it to the todoList."
+            catch(error: unknown){
+                const errorMsg: string = "Error when adding creating a todo-item and/or when adding it to the todoList."
                 console.error(errorMsg)
                 throw new Error(errorMsg)
             }
         });
     } else {
-        const errorMsg = "The 'add-todo-item-btn' element could not be found."
+        const errorMsg:string = "The 'add-todo-item-btn' element could not be found."
         console.error(errorMsg)
         throw new Error(errorMsg)
     }

@@ -1,5 +1,5 @@
 //============================================================
-// TODO-LIST 
+// TODO-LIST - (MAIN.TS)
 //============================================================
 
 //-----------------------------------------
@@ -20,7 +20,10 @@ import { getTodoListFromLocalStorage } from './modules/localStorage.ts'
 
 document.addEventListener("DOMContentLoaded", () => {
     try{initialiseTodoListAndElement();}
-    catch(error){console.log("Error: ", error);}
+    catch(error: unknown){
+        console.log("Error: ", error);
+        throw error    
+    }
 });
 
 
@@ -28,47 +31,47 @@ document.addEventListener("DOMContentLoaded", () => {
 // INITIALISE  
 //-----------------------------------------
 
-export function initialiseTodoListAndElement(){
+export function initialiseTodoListAndElement(): void{
     try{
         const todoList: TodoList | undefined = getTodoListFromLocalStorage();
-        const todoListElement = document.querySelector(".todo-list") as HTMLElement
-        const todoListHeaderElement = todoListElement.querySelector(".todo-list-header") as HTMLElement
-        const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLElement
-        const todoListFooterElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
+        const todoListElement: HTMLElement = document.querySelector(".todo-list") as HTMLElement
+        const todoListHeaderElement: HTMLElement = todoListElement.querySelector(".todo-list-header") as HTMLElement
+        const todoListMainElement: HTMLElement = todoListElement.querySelector(".todo-list-main")  as HTMLElement
+        const todoListFooterElement: HTMLElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
             if(todoList && todoListElement && todoListHeaderElement && todoListMainElement && todoListFooterElement){
                 renderTodoListElement(todoList, todoListElement);
                 addEventListenersToTodoListHeaderElement(todoListElement);
                 addEventListenersToTodoListMainElement(todoListElement);
                 addEventListenersToTodoListFooterElement(todoListFooterElement,todoListMainElement);    
             } else {
-                const errorMessage = "At least one of the following HTML-elements cannot be found: todo-list-header, todo-list-main and/or todo-list-footer."
+                const errorMessage: string = "At least one of the following HTML-elements cannot be found: todo-list-header, todo-list-main and/or todo-list-footer."
                 console.error(errorMessage);
                 throw new Error(errorMessage)            
             }
         }
-        catch(error){
+        catch(error: unknown){
             console.error("Error:", error);
             throw error; 
         }
 };
 
 
-function renderTodoListElement(todoList: TodoList, todoListElement: HTMLElement){
+function renderTodoListElement(todoList: TodoList, todoListElement: HTMLElement): void {
     try{
-        const todoListHeaderElement = todoListElement.querySelector(".todo-list-header") as HTMLElement
-        const todoListMainElement = todoListElement.querySelector(".todo-list-main")  as HTMLElement
-        const todoListFooterElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
+        const todoListHeaderElement: HTMLElement= todoListElement.querySelector(".todo-list-header") as HTMLElement
+        const todoListMainElement: HTMLElement = todoListElement.querySelector(".todo-list-main")  as HTMLElement
+        const todoListFooterElement: HTMLElement = todoListElement.querySelector(".todo-list-footer")  as HTMLElement
         if(todoListHeaderElement && todoListMainElement && todoListFooterElement){
             renderTodoListHeaderElement(todoListHeaderElement);
             renderTodoListMainElement(todoList, todoListMainElement);
             renderTodoListFooterElement(todoListFooterElement);
         } else {
-            const errorMessage = "At least one of the following HTML-elements cannot be found: todo-list-header, todo-list-main and/or todo-list-footer."
+            const errorMessage: string = "At least one of the following HTML-elements cannot be found: todo-list-header, todo-list-main and/or todo-list-footer."
             console.error(errorMessage);
             throw new Error(errorMessage)            
         }
     }
-    catch(error){
+    catch(error: unknown){
         console.error("Error:", error);
         throw error; 
     }
@@ -80,39 +83,24 @@ function renderTodoListElement(todoList: TodoList, todoListElement: HTMLElement)
 //------------------------------------------------------
 
 export function createNewTodoList(): TodoList{
-    const todoList: TodoList = {
-        id: uuidv4(),
-        title: "",
-        todoItems: [],
+    try{
+        const todoList: TodoList = {
+            id: uuidv4(),
+            title: "",
+            todoItems: [],
+        }
+        return todoList
     }
-    return todoList
+    catch(error: unknown){
+        console.error("Error:", error);
+        throw error; 
+    }
 };
 
 
-/* export function getTodoListFromLocalStorage(): TodoList | undefined {
-    try{
-        let todoList: TodoList;
-        const todoListJson = localStorage.getItem('todoList');
-        //console.log("todoListJson: ",todoListJson);
-        if(todoListJson){
-            todoList = JSON.parse(todoListJson)
-            return todoList
-        } else {
-            todoList = createNewTodoList()
-            return todoList
-        }
-    }
-    catch(error){
-        console.log("Error: ", error)
-    }
-} */
-
-
-export function updateTodoListInLocalStorage(todoList: TodoList){
+export function updateTodoListInLocalStorage(todoList: TodoList): void {
     localStorage.setItem('todoList', JSON.stringify(todoList));
 }
 
-/* export function deleteTodoList(){} */  // ROADMAP
-/* export function addTodoListToWindow(){} */  // ROADMAP
 
 

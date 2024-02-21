@@ -14,9 +14,9 @@ import { deleteAllTodoItemsFromTsObject } from './todoListMain';
 // INITIALISE - RENDER HTML/DOM-ELEMENT   
 //-----------------------------------------
 
-export function renderTodoListHeaderElement(todoListHeaderElement: HTMLElement){
-    let todoList = getTodoListFromLocalStorage();
-    let title = todoList?.title || "My Todo List"
+export function renderTodoListHeaderElement(todoListHeaderElement: HTMLElement):void {
+    let todoList: TodoList | undefined = getTodoListFromLocalStorage();
+    let title: string = todoList?.title || "My Todo List"
     let html: string = `
         <h3 class="todo-list-heading" contenteditable="false">${title}</h3>
             <button class="edit-todo-list-heading-btn button">
@@ -54,7 +54,7 @@ export function renderTodoListHeaderElement(todoListHeaderElement: HTMLElement){
 // INITIALISE - ADD EVENT-LISTENERS   
 //-----------------------------------------
 
-export function addEventListenersToTodoListHeaderElement(todoListElement: HTMLElement):void {  
+export function addEventListenersToTodoListHeaderElement(todoListElement: HTMLElement): void {  
     addEventListenerToEditButtonInTodoListHeaderElement(todoListElement);
     addEventListenerToInfoButtonInTodoListHeaderElement(todoListElement);
     addEventListenerToDeleteAllTodoItemsButtonInTodoListHeaderElement(todoListElement);
@@ -66,22 +66,22 @@ export function addEventListenersToTodoListHeaderElement(todoListElement: HTMLEl
 //-----------------------------------------
 
 
-function addEventListenerToEditButtonInTodoListHeaderElement(todoListElement: HTMLElement){
+function addEventListenerToEditButtonInTodoListHeaderElement(todoListElement: HTMLElement): void {
     
     try {
-        const editTodoListHeadingBtn = todoListElement.querySelector('.edit-todo-list-heading-btn') as HTMLButtonElement;
-        const todoListHeading = todoListElement.querySelector('.todo-list-heading') as HTMLElement;
+        const editTodoListHeadingBtn: HTMLButtonElement = todoListElement.querySelector('.edit-todo-list-heading-btn') as HTMLButtonElement;
+        const todoListHeading: HTMLElement = todoListElement.querySelector('.todo-list-heading') as HTMLElement;
         let title: string = "";
         
         editTodoListHeadingBtn.addEventListener('click', () => {
-            const isEditable = todoListHeading?.getAttribute('contenteditable') === 'true';
+            const isEditable: boolean = todoListHeading?.getAttribute('contenteditable') === 'true';
             if (isEditable && todoListHeading) {
                 title = todoListHeading.textContent || "";
                 todoListHeading.setAttribute('contenteditable', 'false');
                 editTodoListHeadingBtn.innerHTML = `<img class="todo-item-img icon" src="/icons/pencil-svgrepo-com.svg" title="Change the name of the todo list" alt="edit-icon: Change the name of the todo list">`;
-                let todoList = getTodoListFromLocalStorage()
+                let todoList: TodoList | undefined = getTodoListFromLocalStorage()
                 if(todoList){
-                    let updatedTodoList = updateTodoListTitleInTsObject(todoList, title);
+                    let updatedTodoList: TodoList = updateTodoListTitleInTsObject(todoList, title);
                     updateTodoListInLocalStorage(updatedTodoList);
                 }
             } else {
@@ -89,18 +89,18 @@ function addEventListenerToEditButtonInTodoListHeaderElement(todoListElement: HT
                 editTodoListHeadingBtn.innerText = 'Save';
             }
         });
-    } catch (error) {
+    } catch (error: unknown) {
         console.error('An error occurred while accessing elements:', error);
     }
 };
 
 
-function addEventListenerToInfoButtonInTodoListHeaderElement(todoListElement: HTMLElement){
+function addEventListenerToInfoButtonInTodoListHeaderElement(todoListElement: HTMLElement): void {
     
-    const infoButtons = todoListElement.querySelectorAll('.info-btn');
-    const infoDialogs = todoListElement.querySelectorAll('.info-dialog');
-    const closeInfoDialogButtons = todoListElement.querySelectorAll('.close-info-dialog-btn');
-    const infoDialogOverlays = todoListElement.querySelectorAll('.info-dialog-overlay');
+    const infoButtons: NodeListOf<HTMLButtonElement> = todoListElement.querySelectorAll('.info-btn');
+    const infoDialogs: NodeListOf<Element> = todoListElement.querySelectorAll('.info-dialog');
+    const closeInfoDialogButtons: NodeListOf<HTMLButtonElement> = todoListElement.querySelectorAll('.close-info-dialog-btn');
+    const infoDialogOverlays: NodeListOf<Element> = todoListElement.querySelectorAll('.info-dialog-overlay');
     
     infoButtons.forEach((button, index) => {
         button.addEventListener('click', () => {
@@ -118,30 +118,29 @@ function addEventListenerToInfoButtonInTodoListHeaderElement(todoListElement: HT
 };
 
 
-function addEventListenerToDeleteAllTodoItemsButtonInTodoListHeaderElement(todoListElement: HTMLElement){
+function addEventListenerToDeleteAllTodoItemsButtonInTodoListHeaderElement(todoListElement: HTMLElement): void {
     try {
         const deleteAllTodoItemsButton = todoListElement.querySelector(".delete-all-todo-items-btn") as HTMLButtonElement;
-        
         if(deleteAllTodoItemsButton){
             deleteAllTodoItemsButton.addEventListener('click', () => {
                 const todoItemElements: NodeListOf<HTMLElement> = todoListElement.querySelectorAll('.todo-item') as NodeListOf<HTMLElement>;
                 todoItemElements.forEach(todoItemElement => {
                     todoItemElement.remove();
                 });
-                let todoList = getTodoListFromLocalStorage()
+                let todoList: TodoList | undefined = getTodoListFromLocalStorage()
                 
                 if(todoList){
-                    let updatedTodoList = deleteAllTodoItemsFromTsObject(todoList);
+                    let updatedTodoList: TodoList = deleteAllTodoItemsFromTsObject(todoList);
                     updateTodoListInLocalStorage(updatedTodoList);
                 }
             });
         }
-    } catch (error) {
+    } catch (error: unknown) {
         console.error('An error occurred while accessing elements:', error);
     }
 };
 
 
-function updateTodoListTitleInTsObject(todoList: TodoList, newTitle: string){
+function updateTodoListTitleInTsObject(todoList: TodoList, newTitle: string): TodoList {
     return {...todoList, title: newTitle}; 
 }

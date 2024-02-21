@@ -47,12 +47,10 @@ h3{
 /* MAJOR CONTAINERS */
 /* ---------------------------------------------------------------- */
 
-
 .body-container{
     font-family: var(--font-family-01);
     background-color: var(--body-background-color);
 } 
-
 
 .main-container{
     display: flex;
@@ -77,15 +75,12 @@ h3{
     align-items: flex-start;
     height: clamp(200px, 60vh, 100vh);
     width: 95vw;
-    max-width: 400px;
-
- /*    width: clamp(250px, 300px, 400px); */ 
-    background-color:  var(--todo-list-background-color);  /* var(--card-background-color); */
+    max-width: 400px; 
+    background-color:  var(--todo-list-background-color);  
     border-radius: 5px;
     margin: min(1.5vw, 1.5vh); 
 
 } 
-
 
 .todo-list-header{
   display: flex;
@@ -95,12 +90,10 @@ h3{
   align-items: center;
 }
 
-
 .todo-list-heading{
   font-size: clamp(10px, 2.2vh, 18px); 
   flex-grow: 1; 
 } 
-
 
 .todo-list-heading[contenteditable="true"] {
   border: 1px solid #ccc;
@@ -122,22 +115,18 @@ h3{
 
 .status-of-todo-item-btn{
   background-color: var(--todo-item-background-color);
-  background-image: url("/icons/circle-svgrepo-com.svg");
   border: none;
   cursor: pointer;
 }
 
 .status-of-todo-item-btn.checked{
   background-color: var(--todo-item-background-color);
-  background-image: url("/icons/check-mark-button-svgrepo-com.svg");
   border: none;
 }
-
   
 
 .delete-todo-list-btn{
   margin-top: 0;
-
 }
 
 .icon{
@@ -180,7 +169,6 @@ h3{
   border: 1px solid var(--todo-item-font-color);
 }
 
-
 .todo-list-footer{
   display: flex;
   flex-direction: row;
@@ -191,7 +179,6 @@ h3{
   border-color: var(--todo-item-background-color);
   border-top-width: 2px;
   padding: min(1.5vw, 1.5vh);
-
 }
 
 .add-todo-item-description-input{
@@ -202,14 +189,12 @@ h3{
   font-size: clamp(10px, 2vh, 20px);
 }
 
-
 .add-todo-item-btn{
   height: 100%;
   border-radius: 5px;
   padding: 0 0.7vh;
   font-size: clamp(10px, 2vh, 20px);
 }
-
 
 .add-todo-item-info-btn{
   visibility: hidden;
@@ -245,8 +230,5 @@ h3{
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
-  
-  
-  
 
 

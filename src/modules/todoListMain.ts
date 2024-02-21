@@ -11,7 +11,7 @@ import { getTodoListFromLocalStorage, updateTodoListInLocalStorage } from './loc
 // INITIALISE - FROM LOCAL STORAGE
 //-----------------------------------------
 
-export function renderTodoListMainElement(todoList: TodoList, todoListMainElement: HTMLElement):void {
+export function renderTodoListMainElement(todoList: TodoList, todoListMainElement: HTMLElement): void {
     try{
         if(todoListMainElement){
             let html: string = "";
@@ -22,13 +22,13 @@ export function renderTodoListMainElement(todoList: TodoList, todoListMainElemen
             } 
             todoListMainElement.innerHTML = html;
         } else {
-            const errorMessage = "The HTML element 'todo-list-main' (todoListMainElement) cannot be found.";
+            const errorMessage: string = "The HTML element 'todo-list-main' (todoListMainElement) cannot be found.";
             console.error(errorMessage);
             throw new Error(errorMessage);   
         }
 
     }
-    catch(error){
+    catch(error: unknown){
         console.error("Error: ", error);
         throw error; 
     }
@@ -41,18 +41,18 @@ export function addEventListenersToTodoListMainElement(todoListMainElement: HTML
             addDragAndDropEventListenerToTodoListMainElement(todoListMainElement)
             addEventListenerToAllButtonOnAllTodoItemElements(todoListMainElement);
         } else {
-            const errorMessage = "The HTML element 'todo-list-main' cannot be found.";
+            const errorMessage: string = "The HTML element 'todo-list-main' cannot be found.";
             console.error(errorMessage);
             throw new Error(errorMessage);
         }
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Error:", error);
         throw error; 
     }
 };
 
 
-function  addEventListenerToAllButtonOnAllTodoItemElements(todoListMainElement: HTMLElement){
+function  addEventListenerToAllButtonOnAllTodoItemElements(todoListMainElement: HTMLElement): void {
     try{
         const todoItemElements: NodeListOf<HTMLElement>  = todoListMainElement.querySelectorAll(".todo-item");
         todoItemElements.forEach(todoItemElement => {
@@ -61,15 +61,14 @@ function  addEventListenerToAllButtonOnAllTodoItemElements(todoListMainElement: 
             addEventListenerToCheckButtonOnTodoItemElement(todoItemElement);
             addEventListenerToDeleteButtonOnTodoItemElement(todoItemElement);
         })
+    } catch (error: unknown) {
+        console.error("Error:", error);
+        throw error; 
     }
-    catch(error){
-        
-    }
-
 };
 
 
-function createHtmlForNewTodoItemElement(todoItem: TodoItem): string{
+function createHtmlForNewTodoItemElement(todoItem: TodoItem): string {
     try{
         if(todoItem){
             let emptyCircle: string;
@@ -80,10 +79,7 @@ function createHtmlForNewTodoItemElement(todoItem: TodoItem): string{
             } else {
                 emptyCircle = "";
                 checkMark = "hidden";
-            }
-            console.log("emptyCircle",emptyCircle);
-            console.log("checkMark",checkMark);
-            
+            }            
             let html = `
                 <li class="todo-item" id="${todoItem.id}" draggable="true">
                     <button class="status-of-todo-item-btn button">
@@ -104,12 +100,12 @@ function createHtmlForNewTodoItemElement(todoItem: TodoItem): string{
             `; 
             return html;
         } else {
-            const errorMessage = "The input parameter todoItem is null.";
+            const errorMessage: string = "The input parameter todoItem is null.";
             console.error(errorMessage);
             throw new Error(errorMessage);
         }
     }   
-    catch(error){
+    catch(error: unknown){
         console.error("Error:", error);
         throw error; 
     }
@@ -117,16 +113,16 @@ function createHtmlForNewTodoItemElement(todoItem: TodoItem): string{
 
 
 //----------------------------------------------------------------
-// INITIALISE - NEW TODO-ITEM  (render, add eventlisteners etc) 
+// INITIALISE - NEW TODO-ITEM  (TS-object, localStorage, render, add eventlisteners etc) 
 //----------------------------------------------------------------
 
 export function initialiseNewTodoItemAndElement(todoList: TodoList, todoListMainElement: HTMLElement, description: string){
     // TS-object & localStorage
     const todoItem: TodoItem = createTodoItem(description);
-    const updatedTodoList = addNewTodoItemAtStartOfTodoList(todoItem, todoList);
+    const updatedTodoList: TodoList = addNewTodoItemAtStartOfTodoList(todoItem, todoList);
     updateTodoListInLocalStorage(updatedTodoList);
     // update HTML/DOM
-    const todoItemElement = createNewTodoItemElement(todoItem);
+    const todoItemElement: HTMLLIElement = createNewTodoItemElement(todoItem);
     addNewTodoItemElementAtStartOfTodoListMainElement(todoItemElement, todoListMainElement)
     // add eventListeners
     addEventListenerToStatusButtonOnTodoItemElement(todoItemElement);
@@ -136,12 +132,12 @@ export function initialiseNewTodoItemAndElement(todoList: TodoList, todoListMain
 };
 
 
-function createNewTodoItemElement(todoItem: TodoItem){
-    const todoItemElement = document.createElement('li');
+function createNewTodoItemElement(todoItem: TodoItem): HTMLLIElement {
+    const todoItemElement: HTMLLIElement = document.createElement('li');
     todoItemElement.className = 'todo-item';
     todoItemElement.id = `${todoItem.id}`;
     todoItemElement.draggable = true;
-    let html = `
+    let html: string = `
         <button class="status-of-todo-item-btn button">
             <img class="status-todo-of-todo-item-img icon" src="/icons/circle-button-joystick-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
             <img class="status-done-of-todo-item-img icon hidden" src="/icons/check-mark-button-svgrepo-com.svg" alt="Status 'todo' of the to-do item">
@@ -161,31 +157,31 @@ function createNewTodoItemElement(todoItem: TodoItem){
     return todoItemElement
 }
 
-function addNewTodoItemAtStartOfTodoList(todoItem: TodoItem, todoList: TodoList) {
+
+function addNewTodoItemAtStartOfTodoList(todoItem: TodoItem, todoList: TodoList): TodoList {
     try {
-        const updatedTodoList = { ...todoList };
+        const updatedTodoList: TodoList = { ...todoList };
         if (todoItem) {
             if (updatedTodoList.todoItems === null) {
                 updatedTodoList.todoItems = [todoItem];
             } else {
                 updatedTodoList.todoItems.unshift(todoItem);
             }
-            console.log("todoList after unshift:", updatedTodoList);
         }
         return updatedTodoList;
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Error: ", error);
         throw error;
     }
 }
 
 
-function addNewTodoItemElementAtStartOfTodoListMainElement(todoItemElement: HTMLElement, todoListMainElement: HTMLElement){
+function addNewTodoItemElementAtStartOfTodoListMainElement(todoItemElement: HTMLElement, todoListMainElement: HTMLElement): void{
     try{
         todoListMainElement.prepend(todoItemElement)
     }
-    catch(error){
-        const errorMsg = "Error: Either todoItemLiElement or todoListUlElement is null."
+    catch(error: unknown){
+        const errorMsg: string = "Error: Either todoItemLiElement or todoListUlElement is null."
         console.error(errorMsg, error);
         throw new Error(errorMsg)
     }
@@ -197,7 +193,7 @@ function addNewTodoItemElementAtStartOfTodoListMainElement(todoItemElement: HTML
 // ADD EVENT-LISTENERS - BUTTONS  
 //-----------------------------------------
 
-function addEventListenerToStatusButtonOnTodoItemElement(todoItemElement: HTMLElement){
+function addEventListenerToStatusButtonOnTodoItemElement(todoItemElement: HTMLElement): void {
     toggleStatusButtonOnTodoItemElement(todoItemElement);
 };
 
@@ -207,15 +203,15 @@ function addEventListenerToEditButtonOnTodoItemElement(todoItemElement: HTMLElem
         const todoItemDescriptionPElement = todoItemElement.querySelector('.todo-item-description-p') as HTMLElement;
         let description: string | null = todoItemDescriptionPElement.textContent;
         editButtonOnTodoItemElement.addEventListener('click', () => {
-            const isEditable = todoItemDescriptionPElement?.getAttribute('contenteditable') === 'true';
+            const isEditable: boolean = todoItemDescriptionPElement?.getAttribute('contenteditable') === 'true';
             if (isEditable && todoItemDescriptionPElement) {
                 todoItemDescriptionPElement.setAttribute('contenteditable', 'false');
                 editButtonOnTodoItemElement.innerHTML = `<img class="todo-item-img icon"  src="/icons/pencil-svgrepo-com.svg" title="Edit description of the todo item" alt="edit-icon of the todo item">`;
                 description = todoItemDescriptionPElement.textContent;
-                let todoItemId = todoItemElement.id;
-                let todoList = getTodoListFromLocalStorage()
+                let todoItemId: string = todoItemElement.id;
+                let todoList: TodoList | undefined = getTodoListFromLocalStorage()
                 if(todoList){
-                    let updatedTodoList = updateTodoItemDescriptionInTsObject(todoList, todoItemId, description);
+                    let updatedTodoList: TodoList = updateTodoItemDescriptionInTsObject(todoList, todoItemId, description);
                     updateTodoListInLocalStorage(updatedTodoList);
                 }        
             } else {
@@ -223,55 +219,52 @@ function addEventListenerToEditButtonOnTodoItemElement(todoItemElement: HTMLElem
                 editButtonOnTodoItemElement.innerText = 'Save';
             }    
         });
-
     }
-    catch(error:any){
+    catch(error: unknown){
         console.log("Error in event-listener for edit-todo-item-btn.", error);
         throw error;
     }
 };
 
-function addEventListenerToCheckButtonOnTodoItemElement(todoItemElement: HTMLElement){
-    const checkButtonOnTodoItemElement = todoItemElement.querySelector(".check-todo-item-btn") as HTMLButtonElement
+function addEventListenerToCheckButtonOnTodoItemElement(todoItemElement: HTMLElement): void {
+    const checkButtonOnTodoItemElement: HTMLButtonElement = todoItemElement.querySelector(".check-todo-item-btn") as HTMLButtonElement
     try{
         checkButtonOnTodoItemElement.addEventListener('click', () => {
-            const statusButtonOnTodoItemElement = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement
+            const statusButtonOnTodoItemElement: HTMLButtonElement = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement
             statusButtonOnTodoItemElement.click()
         })
     }
-    catch(error){
+    catch(error: unknown){
         console.log("Error in event-listener for status-of-todo-item-btn.", error);
         throw error;
     }
 };
 
-function addEventListenerToDeleteButtonOnTodoItemElement(todoItemElement: HTMLElement){
-    const deleteButtonOnTodoItemElement = todoItemElement.querySelector(".delete-todo-item-btn") as HTMLButtonElement
+function addEventListenerToDeleteButtonOnTodoItemElement(todoItemElement: HTMLElement): void {
+    const deleteButtonOnTodoItemElement: HTMLButtonElement = todoItemElement.querySelector(".delete-todo-item-btn") as HTMLButtonElement
     try {
         deleteButtonOnTodoItemElement.addEventListener('click', () => {
             todoItemElement.remove();
-            let todoItemId = todoItemElement.id;
-            let todoList = getTodoListFromLocalStorage()
+            let todoItemId: string = todoItemElement.id;
+            let todoList: TodoList | undefined = getTodoListFromLocalStorage()
             if(todoList){
-                let updatedTodoList = deleteTodoItemFromTsObject(todoList, todoItemId);
+                let updatedTodoList: TodoList = deleteTodoItemFromTsObject(todoList, todoItemId);
                 updateTodoListInLocalStorage(updatedTodoList);
             }
         });
-    } catch (error) {
+    } catch (error: unknown) {
         console.error('An error occurred while accessing elements:', error);
         throw error;
     }
 };
 
-function toggleStatusButtonOnTodoItemElement(todoItemElement: HTMLElement){
+function toggleStatusButtonOnTodoItemElement(todoItemElement: HTMLElement): void {
     try{
-        const statusButtonOnTodoItemElement = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement;
-        const statusTodoOfTodoItemImg = todoItemElement.querySelector(".status-todo-of-todo-item-img") as HTMLImageElement;
-        const statusDoneOfTodoItemImg = todoItemElement.querySelector(".status-done-of-todo-item-img") as HTMLImageElement;
+        const statusButtonOnTodoItemElement: HTMLButtonElement = todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement;
+        const statusTodoOfTodoItemImg: HTMLImageElement = todoItemElement.querySelector(".status-todo-of-todo-item-img") as HTMLImageElement;
+        const statusDoneOfTodoItemImg: HTMLImageElement = todoItemElement.querySelector(".status-done-of-todo-item-img") as HTMLImageElement;
 
         statusButtonOnTodoItemElement.addEventListener('click', ()=>{ 
-            console.log("todoItemElement",todoItemElement)
-            console.log("status clicked"); 
             let newIsDoneStatus: boolean;          
             if(statusDoneOfTodoItemImg.classList.contains('hidden')){
                 statusTodoOfTodoItemImg.classList.add('hidden');
@@ -282,90 +275,131 @@ function toggleStatusButtonOnTodoItemElement(todoItemElement: HTMLElement){
                 statusDoneOfTodoItemImg.classList.add('hidden');
                 newIsDoneStatus = false
             }
-            let todoItemId = todoItemElement.id
-            let todoList = getTodoListFromLocalStorage()
+            let todoItemId: string = todoItemElement.id
+            let todoList: TodoList | undefined = getTodoListFromLocalStorage()
             if(todoList){
-                let updatedTodoList = updateTodoItemStatusInTsObject(todoList, todoItemId, newIsDoneStatus)
+                let updatedTodoList: TodoList = updateTodoItemStatusInTsObject(todoList, todoItemId, newIsDoneStatus)
                 updateTodoListInLocalStorage(updatedTodoList)
             }
         });    
     }
-    catch(error:any){
+    catch(error: unknown){
         console.log("Error in eventlistener for todo-item status button", error);
         throw error;
     }
 }
 
 
+
+//----------------------------------------------------
+// TS-OBJECT - CREATE, GET(READ), UPDATE, DELETE, ADD  
+//----------------------------------------------------
+
+export function createTodoItem(description: string = ''): TodoItem {
+    try{
+        const todoItem: TodoItem = {
+            id: uuidv4(),
+            isDone: false,
+            description: description,
+        };
+        return todoItem;
+    }
+    catch(error: unknown){
+        console.log("Error when creating todo-item", error);
+        throw error;
+    }
+}
+
+
 function updateTodoItemStatusInTsObject(todoList: TodoList, todoItemId: string, newIsDoneStatus: boolean): TodoList {
-    if (!todoList.todoItems) {
-        return todoList; 
-    }
-
-    const indexOfTodoItemToUpdate = todoList.todoItems.findIndex(item => item.id === todoItemId);
-    if (indexOfTodoItemToUpdate === -1) {
-        return todoList; 
-    }
-
-    const updatedTodoItems = todoList.todoItems.map(item => {
-        if (item.id === todoItemId) {
-            return {
-                ...item,
-                isDone: newIsDoneStatus
-            };
+    try{
+        if (!todoList.todoItems) {
+            return todoList; 
         }
-        return item;
-    });
+    
+        const indexOfTodoItemToUpdate: number = todoList.todoItems.findIndex(item => item.id === todoItemId);
+        if (indexOfTodoItemToUpdate === -1) {
+            return todoList; 
+        }
+    
+        const updatedTodoItems: TodoItem[] = todoList.todoItems.map(item => {
+            if (item.id === todoItemId) {
+                return {
+                    ...item,
+                    isDone: newIsDoneStatus
+                };
+            }
+            return item;
+        });
+    
+        return {
+            ...todoList,
+            todoItems: updatedTodoItems
+        };
+    }
+    catch(error: unknown){
+        console.log("Error in updating todo-item status in TS-object.", error);
+        throw error;
+    }
 
-    return {
-        ...todoList,
-        todoItems: updatedTodoItems
-    };
 }
 
 
 function updateTodoItemDescriptionInTsObject(todoList: TodoList, todoItemId: string, newDescription: string | null): TodoList {
-    if (!todoList.todoItems) {
-        return todoList; 
-    }
-
-    const indexOfTodoItemToUpdate = todoList.todoItems.findIndex(item => item.id === todoItemId);
-    if (indexOfTodoItemToUpdate === -1) {
-        return todoList; 
-    }
-
-    const updatedTodoItems = todoList.todoItems.map(item => {
-        if (item.id === todoItemId) {
-            return {
-                ...item,
-                description: newDescription
-            };
+    try{
+        if (!todoList.todoItems) {
+            return todoList; 
         }
-        return item;
-    });
-
-    return {
-        ...todoList,
-        todoItems: updatedTodoItems
-    };
+    
+        const indexOfTodoItemToUpdate: number = todoList.todoItems.findIndex(item => item.id === todoItemId);
+        if (indexOfTodoItemToUpdate === -1) {
+            return todoList; 
+        }
+    
+        const updatedTodoItems: TodoItem[] = todoList.todoItems.map(item => {
+            if (item.id === todoItemId) {
+                return {
+                    ...item,
+                    description: newDescription
+                };
+            }
+            return item;
+        });
+    
+        return {
+            ...todoList,
+            todoItems: updatedTodoItems
+        };
+    }
+    catch(error: unknown){
+        console.log("Error in updating todo-item description in TS-object.", error);
+        throw error;
+    }
 }
 
 
 
 function deleteTodoItemFromTsObject(todoList: TodoList, todoItemId: string): TodoList {
-    if (!todoList.todoItems) {
-        return todoList; 
+    try{
+        if (!todoList.todoItems) {
+            return todoList; 
+        }
+        const indexOfTodoItemToDelete: number = todoList.todoItems.findIndex(item => item.id === todoItemId);
+        if (indexOfTodoItemToDelete === -1) {
+            return todoList; 
+        }
+        const updatedTodoItems: TodoItem[] = todoList.todoItems.filter(item => item.id !== todoItemId);
+    
+        return {
+            ...todoList,
+            todoItems: updatedTodoItems.length > 0 ? updatedTodoItems : null
+        };
     }
-    const indexOfTodoItemToDelete = todoList.todoItems.findIndex(item => item.id === todoItemId);
-    if (indexOfTodoItemToDelete === -1) {
-        return todoList; 
+    catch(error: unknown){
+        console.log("Error when deleting todo-item from TS-object", error);
+        throw error;
     }
-    const updatedTodoItems = todoList.todoItems.filter(item => item.id !== todoItemId);
-
-    return {
-        ...todoList,
-        todoItems: updatedTodoItems.length > 0 ? updatedTodoItems : null
-    };
+    
 }
 
 
@@ -376,100 +410,50 @@ export function deleteAllTodoItemsFromTsObject(todoList: TodoList): TodoList{
     };
 };
 
-//----------------------------------------------------
-// TS-OBJECT - CREATE, GET(READ), UPDATE, DELETE, ADD  
-//----------------------------------------------------
-
-export function createTodoItem(description: string = ''): TodoItem {
-    const todoItem: TodoItem = {
-        id: uuidv4(),
-        isDone: false,
-        description: description,
-    };
-    return todoItem;
-}
-
-/* export function getTodoItemById(id: string): TodoItem | undefined {} */  // ROADMAP
-
-/* function updateTodoItemById(id: string): void {
-//TODO:
-}
-
-function deleteTodoItemById(id: string): void {
-//TODO:
-};
-
-function deleteAllTodoItemElementsOfTodoList(){
-//TODO:
-};
-
-function addTodoItemToTodoList(todoItem: TodoItem){
-//TODO:
-}; */
-
-
-
-//-------------------------------------------------------------
-// HTML/DOM ELEMENT - CREATE, GET (READ), UPDATE, DELETE, ADD 
-//-------------------------------------------------------------
-
-// TODO:
-/* export function initialiseTodoItems(todoItems:TodoItem[]):void{
-
-    todoItems.forEach(todoItem => {
-        const todoItemElement = createTodoItemElement(todoItem);
-        addEventListenerToEveryButtonOnTheTodoItem(todoItemElement);
-    });
-    addDragAndDropEventListenerToTodoListMain();
-};
- */
-
-
 
 
 //------------------------------------------------------------
-// ADD EVENT-LISTENER - DRAG & DROP
+// DRAG & DROP - EVENT-LISTENERS & FUNCTIONS
 //------------------------------------------------------------
 
-export function addDragAndDropEventListenerToTodoListMainElement(todoListMainElement:HTMLElement ){
+export function addDragAndDropEventListenerToTodoListMainElement(todoListMainElement:HTMLElement ): void {
     try {
         if (todoListMainElement) {
             todoListMainElement.addEventListener("dragstart", handleDragStart);
             todoListMainElement.addEventListener("dragover", handleDragOver);
             todoListMainElement.addEventListener("drop", handleDrop);
         } else {
-            const errorMsg = "The element 'todo-list-main' cannot be found.";
+            const errorMsg: string = "The element 'todo-list-main' cannot be found.";
             console.error(errorMsg)
             throw new Error(errorMsg);
         }
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("An error occurred:", error);
         throw error
     }
 };
 
 
-//------------------------------------------------------------
-// DRAG & DROP - FUNCTIONS: DRAG-START, DRAG-OVER, DRAG-DROP
-//------------------------------------------------------------
 
-function handleDragStart(event: DragEvent) {
+function handleDragStart(event: DragEvent): void {
     try {
         const target: HTMLElement = event.target as HTMLElement;
         if (target.classList.contains("todo-item")) {
             event.dataTransfer?.setData("text/plain", target.id);
         }
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("An error occurred in handleDragStart function:", error);
+        throw error
     }
 }
 
 
-function handleDragOver(event: DragEvent) {
+function handleDragOver(event: DragEvent): void {
     try {
         event.preventDefault();
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("An error occurred in handleDragOver function:", error);
+        throw error
     }
 }
 
@@ -477,98 +461,17 @@ function handleDragOver(event: DragEvent) {
 function handleDrop(event: DragEvent): void {
     try {
         event.preventDefault();
-        const data = event.dataTransfer?.getData("text/plain");
-        const draggedElement = document.getElementById(data!);
-        const dropTarget = event.target as HTMLElement;
-        const todoItem = dropTarget.closest(".todo-item");
+        const data: string | undefined = event.dataTransfer?.getData("text/plain");
+        const draggedElement: HTMLElement | null = document.getElementById(data!);
+        const dropTarget: HTMLElement = event.target as HTMLElement;
+        const todoItem: Element | null= dropTarget.closest(".todo-item");
         if (draggedElement && todoItem) {
             todoItem.parentNode?.insertBefore(draggedElement, todoItem);
             // TODO: Get sort-order from todoListMain and implement the order in localStorage
         }
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("An error occurred in the handleDrop function:", error);
+        throw error
     }
 }
 
-
-
-
-
-//----------------------------------------------------------------
-// OLD CODE
-//----------------------------------------------------------------
-
-
-/* 
-function addEventListenerToAllButtonsOnTheTodoItem(todoItemElement: HTMLElement){
-
-    const buttonObjects = [
-        { button: todoItemElement.querySelector(".status-of-todo-item-btn") as HTMLButtonElement, action: "ChangeStatus"}, 
-        { button: todoItemElement.querySelector(".edit-todo-item-btn") as HTMLButtonElement, action: "Edit" },
-        { button: todoItemElement.querySelector(".check-todo-item-btn") as HTMLButtonElement, action: "Check" },
-        { button: todoItemElement.querySelector(".delete-todo-item-btn") as HTMLButtonElement, action: "Delete" }
-    ];
-    
-    buttonObjects.forEach(obj => {
-        obj.button.addEventListener("click", (event: MouseEvent) => {
-            try {
-                const targetElement = event.target as HTMLElement;
-                const todoItemElement: HTMLElement | null = targetElement.closest(".todo-item");
-                if (todoItemElement) {
-                    switch (obj.action) {
-                        case "ChangeStatus":
-                        case "Check":
-                            try{
-                                const statusTodoOfTodoItemImg = todoItemElement.querySelector(".status-todo-of-todo-item-img") as HTMLImageElement;
-                                const statusDoneOfTodoItemImg = todoItemElement.querySelector(".status-done-of-todo-item-img") as HTMLImageElement;
-                                obj.button?.addEventListener('click', ()=>{
-                                    obj.button?.classList.toggle('checked');
-                                    statusTodoOfTodoItemImg.classList.toggle('hidden');
-                                    statusDoneOfTodoItemImg.classList.toggle('hidden');
-                                    //TODO: flytta ner/upp todo-item i listan ?
-                                });    
-                            }
-                            catch(error:any){
-                                console.log("Error in eventlistener for todo-item status-btn", error);
-                            }
-                            break;
-                        case "Edit":
-                            try {
-                                const todoItemDescriptionP = todoItemElement.querySelector('.todo-item-description-p') as HTMLElement;
-                                obj.button?.addEventListener('click', () => {
-                                    const isEditable = todoItemDescriptionP?.getAttribute('contenteditable') === 'true';
-                        
-                                    if (isEditable) {
-                                        todoItemDescriptionP?.setAttribute('contenteditable', 'false');
-                                        obj.button.innerHTML = `<img class="todo-item-img icon"  src="/icons/pencil-svgrepo-com.svg" title="Edit description of the todo item" alt="edit-icon of the todo item">`;
-                                    } else {
-                                        todoItemDescriptionP?.setAttribute('contenteditable', 'true');
-                                        obj.button.innerText = 'Save';
-                                    }
-                                });
-                            } catch (error) {
-                                console.error('An error occurred while accessing elements:', error);
-                            }
-                            break; 
-                        case "Delete":
-                            try {
-                                obj.button?.addEventListener('click', () => {
-                                    todoItemElement.remove();
-                                });
-                            } catch (error) {
-                                console.error('An error occurred while accessing elements:', error);
-                            }
-                            break; 
-                        default:
-                            console.log("Error in eventListeners in renderTodoItem function");
-                    }    
-                } else {
-                    throw new Error("Parent todo-item not found in renderTodoItem function.");
-                }
-            } catch (error:any) {
-                console.error("An error occurred:", error);
-            }
-        });
-    });
-};
- */
