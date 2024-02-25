@@ -21,7 +21,7 @@ export function renderTodoListFooterElement(todoListFooterElement: HTMLElement):
             <input type="text" class="add-todo-item-description-input" placeholder="Write a new todo item here...">
             <button class="info-btn button info-btn-hidden add-todo-item-info-btn"></button>
             <button class="add-todo-item-btn button">
-                <img class="add-todo-item-img icon" src="/icons/plus-svgrepo-com.svg" alt="">
+                <img class="add-todo-item-img icon" src="/icons/plus-svgrepo-com.svg" alt="add-icon: add a todo item by clicking on this icon">
                 Add
             </button>
             <div class="info-dialog">
